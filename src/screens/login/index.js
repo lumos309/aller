@@ -28,6 +28,9 @@ const LoginForm = styled.form`
 const StyledButton = styled(Button)`
   margin-top: 20px !important;
 `
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 
 function Login() {
   return (
@@ -40,9 +43,12 @@ function Login() {
           <TextField label="Username" />
           <TextField label="Password" type="password"/>
         </LoginForm>
-        <StyledButton to="/" variant="contained" >
-          Login
-        </StyledButton>
+        <StyledLink to="/dashboard">
+          <StyledButton variant="contained" >
+            Login
+          </StyledButton>
+        </StyledLink>
+
       </LoginContainer>
     </Container>
   );
