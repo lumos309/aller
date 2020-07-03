@@ -10,7 +10,7 @@ const Container = styled.div`
 `
 
 const CalendarContainer = styled.div`
-    width: 1000px;
+    width: 80vw;
 `
 const Itinerary = () => {
     return (
