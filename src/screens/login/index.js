@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import harold from '../../assets/images/avatar.png';
-import logo from '../../assets/images/allersqtrans.png';
+import logo from '../../assets/images/logo.png';
 import {TextField, Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import {Card, CardContent, CardActionArea} from '@material-ui/core';
+import {Card, CardContent} from '@material-ui/core';
 const Container = styled.div`
   display: grid;
   justify-content: center;

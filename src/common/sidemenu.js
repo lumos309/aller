@@ -4,6 +4,7 @@ import HomeIcon from '@material-ui/icons/HomeOutlined';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import logo from '../assets/images/logo.png'
 const MenuContainer = styled.div`
     padding-top: 50px;
     background: #F9F8FF;
@@ -20,14 +21,16 @@ const MenuContainer = styled.div`
             margin: 0 auto;
         }
     }
-    
-
 `
-
+const Logo = styled.img`
+    height: 70px;
+    margin: 0px auto;
+`
 
 const SideMenu = () => {
     return (
         <MenuContainer>
+            <Logo src={logo}></Logo>
             <IconButton>
                 <HomeIcon/>
             </IconButton>
