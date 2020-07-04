@@ -67,6 +67,19 @@ const events = [
         start: '2020-07-06T15:30:00',
         end: '2020-07-06T17:00:00' 
     },
+    {
+        id: '11',
+        title: 'Breakfast @ Hotel',
+        start: '2020-07-07T09:00:00',
+        end: '2020-07-07T10:00:00' 
+    },
+    {
+        id: '12',
+        title: 'Explore the city',
+        start: '2020-07-07T12:00:00',
+        end: '2020-07-07T19:00:00'
+    }
+
 ];
  
 export default events;
