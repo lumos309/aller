@@ -17,6 +17,7 @@ const Container = styled.div`
 
 const CalendarContainer = styled.div`
     width: 80vw;
+    height: 100%;
     && .fc-bg-event.priority{
         z-index: 3;
     }
@@ -75,6 +76,7 @@ const AddButton = styled(Button)`
     border-color: white !important;
     color: white !important;
 `
+
 
 
 const Itinerary = () => {
