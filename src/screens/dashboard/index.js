@@ -7,8 +7,6 @@ import { data } from "./dummyApiResponse.js";
 
 import NycBackground from "../../assets/images/nyc.png";
 
-import "../../styles/styles.css";
-
 /** Covid graph */
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -16,26 +14,38 @@ const options = {
   animationEnabled: true,
   exportEnabled: true,
   theme: "light2", // "light1", "dark1", "dark2"
+  width: "300",
+  height: "300",
   title: {
     text: ""
   },
   axisY: {
     title: "Active Cases",
+    interval: 250,
     fontSize: "8px",
     includeZero: true,
-    suffix: ""
+    suffix: "",
+    gridThickness: 0.5,
+    tickThickness: 0.5,
+    labelFontFamily: "Gill Sans MT",
+    titleFontFamily: "Gill Sans MT"
   },
   axisX: {
     title: "Days",
     prefix: "",
-    interval: 2
+    interval: 3,
+    labelFontFamily: "Gill Sans MT",
+    titleFontFamily: "Gill Sans MT"
   },
   data: [
     {
       type: "spline",
       toolTipContent: "Day {x}: {y}",
       connectNullData: true,
-      dataPoints: data.cases
+      dataPoints: data.cases,
+      markerSize: 1,
+      markerColor: "orange",
+      lineColor: "orange"
     }
   ]
 };
@@ -55,6 +65,8 @@ const RiskIndicator = styled.div`
   height: 30px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-self: center;
 `;
 
 const RiskIndicatorLeft = styled.div`
@@ -74,6 +86,10 @@ const RiskIndicatorRight = styled.div`
   line-height: 30px;
 `;
 
+const DataRow = styled.div`
+  font-weight: 600;
+`;
+
 const Dashboard = () => {
   return (
     <Container
@@ -85,16 +101,27 @@ const Dashboard = () => {
       <h1>Hello dashboard</h1>
       <Link to="/itinerary">Go to Itinerary</Link>
       <br />
-      <RiskIndicator>
-        <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
-        <RiskIndicatorRight>
-          {data ? data.risk : "Loading..."}
-        </RiskIndicatorRight>
-      </RiskIndicator>
-      <CanvasJSChart
-        options={options}
-        /* onRef = {ref => this.chart = ref} */
-      />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <RiskIndicator>
+          <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
+          <RiskIndicatorRight>
+            {data ? data.risk : "Loading..."}
+          </RiskIndicatorRight>
+        </RiskIndicator>
+      </div>
+      <br />
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "45%" }}>
+          <CanvasJSChart
+            options={options}
+            /* onRef = {ref => this.chart = ref} */
+          />
+        </div>
+        <div style={{ width: "45%" }}>
+          <DataRow>Total Cases To Date:</DataRow>
+          <DataRow>Projected (7 days):</DataRow>
+        </div>
+      </div>
     </Container>
   );
 };
