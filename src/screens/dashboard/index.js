@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 import CanvasJSReact from "../../lib/canvasjs.react";
 
 import { data } from "./dummyApiResponse.js";
@@ -89,6 +90,13 @@ const RiskIndicatorRight = styled.div`
 const DataRow = styled.div`
   font-weight: 600;
 `;
+const StyledButton = styled(Button)`
+
+`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
 
 const Dashboard = () => {
   return (
@@ -99,7 +107,11 @@ const Dashboard = () => {
     >
       <ImageHeader src={NycBackground} alt={"NYC"} />
       <h1>Hello dashboard</h1>
-      <Link to="/itinerary">Go to Itinerary</Link>
+        <StyledLink to="/itinerary">
+            <StyledButton color="primary" variant="contained" >
+                    Go to Itinerary
+            </StyledButton>
+        </StyledLink>
       <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <RiskIndicator>
