@@ -21,7 +21,7 @@ const options = {
     text: ""
   },
   axisY: {
-    title: "Active Cases",
+    title: "New Cases Per Day",
     interval: 250,
     fontSize: "8px",
     includeZero: true,
@@ -51,6 +51,23 @@ const options = {
     }
   ]
 };
+
+const calculateProjectedCases = days => {
+  if (!data || !data.cases) return null;
+  // really messy :')
+  let dayNumbers = [];
+  for (let i = 0; i < days; i++) {
+    dayNumbers.push(i);
+  }
+  let total = 0;
+  for (let dataPoint in data.cases) {
+    if (data.cases[dataPoint].x in dayNumbers) {
+      total += data.cases[dataPoint].y;
+    }
+  }
+  return total;
+};
+
 const Container = styled.div`
   display: grid;
   justify-content: center;
@@ -129,7 +146,7 @@ const Dashboard = () => {
         </div>
         <div style={{ width: "45%" }}>
           <DataRow>Total Cases To Date:</DataRow>
-          <DataRow>Projected (7 days):</DataRow>
+          <DataRow>Projected (7 days): {calculateProjectedCases(7)}</DataRow>
         </div>
       </div>
     </Container>
