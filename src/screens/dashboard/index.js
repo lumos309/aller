@@ -6,7 +6,7 @@ import CanvasJSReact from "../../lib/canvasjs.react";
 
 import { data } from "./dummyApiResponse.js";
 
-import NycBackground from "../../assets/images/nyc.png";
+import CoverImage from "../../assets/images/brooklyn.jpeg";
 import { render } from "@testing-library/react";
 
 /** Covid graph */
@@ -72,11 +72,40 @@ const calculateProjectedCases = days => {
 const Container = styled.div`
   display: grid;
   justify-content: center;
+  width: 100vw;
+`;
+
+const Header = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  position: relative;
 `;
 
 const ImageHeader = styled.img`
-  border-radius: 20px;
-  width: 700px;
+  width: 80%;
+  border-radius: 15px;
+  margin: auto 0;
+  filter: brightness(0.7);
+`;
+
+const HeaderTextContainer = styled.div`
+  position: absolute;
+  left: 13%;
+  top: 15%;
+`;
+
+const StyledH1 = styled.h1`
+  color: #fff;
+  font-size: 45px;
+`;
+
+const StyledH2 = styled.h2`
+  color: #fff;
+`;
+const StyledH3 = styled.h3`
+  color: #fff;
 `;
 
 const RiskIndicator = styled.div`
@@ -138,6 +167,7 @@ const ContentPanel = styled.div`
   background: white;
   border-radius: 20px;
   min-height: 400px;
+  width: 70vw;
 `;
 
 class Dashboard extends Component {
@@ -156,85 +186,95 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <Container
-        style={{
-          fontFamily: "Gill Sans MT"
-        }}
-      >
-        <ImageHeader src={NycBackground} alt={"NYC"} />
-        <h1>Hello dashboard</h1>
-        <StyledLink to="/itinerary">
-          <StyledButton color="primary" variant="contained">
-            Go to Itinerary
-          </StyledButton>
-        </StyledLink>
-        <br />
-        <div style={{ background: "#b3e5fc", padding: "10px" }}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Tab
-              isSelected={this.state.activeTab === "tracker"}
-              value={"tracker"}
-              onClick={this.toggleActiveTab}
-            >
-              COVID-19 Tracker
-            </Tab>
-            <Tab
-              isSelected={this.state.activeTab === "happenings"}
-              value={"happenings"}
-              onClick={this.toggleActiveTab}
-            >
-              Recent Happenings Near Your Destinations
-            </Tab>
+      <>
+        <Header>
+          <ImageHeader src={CoverImage} alt={"NYC"} />
+          <HeaderTextContainer>
+            <StyledH1>Brooklyn Baby</StyledH1>
+            <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
+            <StyledH3>New York City, USA</StyledH3>
+          </HeaderTextContainer>
+        </Header>
+        <Container
+          style={{
+            fontFamily: "Gill Sans MT"
+          }}
+        >
+          <StyledLink to="/itinerary">
+            <StyledButton color="primary" variant="contained">
+              Go to Itinerary
+            </StyledButton>
+          </StyledLink>
+          <br />
+          <div style={{ background: "#b3e5fc", padding: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Tab
+                isSelected={this.state.activeTab === "tracker"}
+                value={"tracker"}
+                onClick={this.toggleActiveTab}
+              >
+                COVID-19 Tracker
+              </Tab>
+              <Tab
+                isSelected={this.state.activeTab === "happenings"}
+                value={"happenings"}
+                onClick={this.toggleActiveTab}
+              >
+                Recent Happenings Near Your Destinations
+              </Tab>
+            </div>
+            <ContentPanel>
+              {this.state.activeTab === "tracker" ? (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <RiskIndicator>
+                      <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
+                      <RiskIndicatorRight>
+                        {data ? data.risk : "Loading..."}
+                      </RiskIndicatorRight>
+                    </RiskIndicator>
+                  </div>
+                  <br />
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      flexWrap: "wrap"
+                    }}
+                  >
+                    <div style={{ width: "45%", minWidth: "300px" }}>
+                      <CanvasJSChart
+                        options={options}
+                        /* onRef = {ref => this.chart = ref} */
+                      />
+                    </div>
+                    <div style={{ width: "45%" }}>
+                      <DataRow>Total Cases To Date: {data.casesToDate}</DataRow>
+                      <DataRow>
+                        Projected (7 days): {calculateProjectedCases(7)}
+                      </DataRow>
+                      <DataRow>Active Cases: {data.activeCases}</DataRow>
+                      <DataRow>Recovered Cases: {data.recovered}</DataRow>
+                      <DataRow>Deaths: {data.deaths}</DataRow>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <NearbyEvent>
+                      <h4>Metropolitan Museum of Art</h4>
+                      There are protests taking place nearby. Be careful when
+                      visiting this area.
+                    </NearbyEvent>
+                  </div>
+                </>
+              )}
+            </ContentPanel>
           </div>
-          <ContentPanel>
-            {this.state.activeTab === "tracker" ? (
-              <>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <RiskIndicator>
-                    <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
-                    <RiskIndicatorRight>
-                      {data ? data.risk : "Loading..."}
-                    </RiskIndicatorRight>
-                  </RiskIndicator>
-                </div>
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-evenly"
-                  }}
-                >
-                  <div style={{ width: "45%" }}>
-                    <CanvasJSChart
-                      options={options}
-                      /* onRef = {ref => this.chart = ref} */
-                    />
-                  </div>
-                  <div style={{ width: "45%" }}>
-                    <DataRow>Total Cases To Date: {data.casesToDate}</DataRow>
-                    <DataRow>
-                      Projected (7 days): {calculateProjectedCases(7)}
-                    </DataRow>
-                    <DataRow>Active Cases: {data.activeCases}</DataRow>
-                    <DataRow>Recovered Cases: {data.recovered}</DataRow>
-                    <DataRow>Deaths: {data.deaths}</DataRow>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <NearbyEvent>
-                    <h4>Metropolitan Museum of Art</h4>
-                    There are protests taking place nearby. Be careful when
-                    visiting this area.
-                  </NearbyEvent>
-                </div>
-              </>
-            )}
-          </ContentPanel>
-        </div>
-      </Container>
+        </Container>
+      </>
     );
   }
 }
