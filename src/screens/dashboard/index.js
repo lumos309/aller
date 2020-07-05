@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -7,9 +7,10 @@ import CanvasJSReact from "../../lib/canvasjs.react";
 import { data } from "./dummyApiResponse.js";
 
 import NycBackground from "../../assets/images/nyc.png";
+import { render } from "@testing-library/react";
 
 /** Covid graph */
-var CanvasJS = CanvasJSReact.CanvasJS;
+// var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const options = {
   animationEnabled: true,
@@ -44,7 +45,7 @@ const options = {
       type: "spline",
       toolTipContent: "Day {x}: {y}",
       connectNullData: true,
-      dataPoints: data.cases,
+      dataPoints: data.casesPerDay,
       markerSize: 1,
       markerColor: "orange",
       lineColor: "orange"
@@ -53,16 +54,16 @@ const options = {
 };
 
 const calculateProjectedCases = days => {
-  if (!data || !data.cases) return null;
+  if (!data || !data.casesPerDay) return "Loading...";
   // really messy :')
   let dayNumbers = [];
   for (let i = 0; i < days; i++) {
     dayNumbers.push(i);
   }
   let total = 0;
-  for (let dataPoint in data.cases) {
-    if (data.cases[dataPoint].x in dayNumbers) {
-      total += data.cases[dataPoint].y;
+  for (let dataPoint in data.casesPerDay) {
+    if (data.casesPerDay[dataPoint].x in dayNumbers) {
+      total += data.casesPerDay[dataPoint].y;
     }
   }
   return total;
@@ -113,44 +114,129 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const Dashboard = () => {
-  return (
-    <Container
-      style={{
-        fontFamily: "Gill Sans MT"
-      }}
-    >
-      <ImageHeader src={NycBackground} alt={"NYC"} />
-      <h1>Hello dashboard</h1>
-      <StyledLink to="/itinerary">
-        <StyledButton color="primary" variant="contained">
-          Go to Itinerary
-        </StyledButton>
-      </StyledLink>
-      <br />
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <RiskIndicator>
-          <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
-          <RiskIndicatorRight>
-            {data ? data.risk : "Loading..."}
-          </RiskIndicatorRight>
-        </RiskIndicator>
-      </div>
-      <br />
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "45%" }}>
-          <CanvasJSChart
-            options={options}
-            /* onRef = {ref => this.chart = ref} */
-          />
+const NearbyEvent = styled.div`
+  width: 400px;
+  height: 100px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+`;
+
+const Tab = styled.button`
+  background: ${props => (props.isSelected ? "white" : "#DDD")};
+  border-radius: 5px 5px 0px 0px;
+  height: 30px;
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  font-family: "Gill Sans MT";
+  font-size: 16px;
+`;
+
+const ContentPanel = styled.div`
+  padding: 25px 10px 10px 10px;
+  background: white;
+  border-radius: 20px;
+  min-height: 400px;
+`;
+
+class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      activeTab: "tracker"
+    };
+  }
+
+  toggleActiveTab = e => {
+    this.setState({
+      activeTab: e.target.value
+    });
+  };
+
+  render() {
+    return (
+      <Container
+        style={{
+          fontFamily: "Gill Sans MT"
+        }}
+      >
+        <ImageHeader src={NycBackground} alt={"NYC"} />
+        <h1>Hello dashboard</h1>
+        <StyledLink to="/itinerary">
+          <StyledButton color="primary" variant="contained">
+            Go to Itinerary
+          </StyledButton>
+        </StyledLink>
+        <br />
+        <div style={{ background: "#b3e5fc", padding: "10px" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Tab
+              isSelected={this.state.activeTab === "tracker"}
+              value={"tracker"}
+              onClick={this.toggleActiveTab}
+            >
+              COVID-19 Tracker
+            </Tab>
+            <Tab
+              isSelected={this.state.activeTab === "happenings"}
+              value={"happenings"}
+              onClick={this.toggleActiveTab}
+            >
+              Recent Happenings Near Your Destinations
+            </Tab>
+          </div>
+          <ContentPanel>
+            {this.state.activeTab === "tracker" ? (
+              <>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <RiskIndicator>
+                    <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
+                    <RiskIndicatorRight>
+                      {data ? data.risk : "Loading..."}
+                    </RiskIndicatorRight>
+                  </RiskIndicator>
+                </div>
+                <br />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly"
+                  }}
+                >
+                  <div style={{ width: "45%" }}>
+                    <CanvasJSChart
+                      options={options}
+                      /* onRef = {ref => this.chart = ref} */
+                    />
+                  </div>
+                  <div style={{ width: "45%" }}>
+                    <DataRow>Total Cases To Date: {data.casesToDate}</DataRow>
+                    <DataRow>
+                      Projected (7 days): {calculateProjectedCases(7)}
+                    </DataRow>
+                    <DataRow>Active Cases: {data.activeCases}</DataRow>
+                    <DataRow>Recovered Cases: {data.recovered}</DataRow>
+                    <DataRow>Deaths: {data.deaths}</DataRow>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <NearbyEvent>
+                    <h4>Metropolitan Museum of Art</h4>
+                    There are protests taking place nearby. Be careful when
+                    visiting this area.
+                  </NearbyEvent>
+                </div>
+              </>
+            )}
+          </ContentPanel>
         </div>
-        <div style={{ width: "45%" }}>
-          <DataRow>Total Cases To Date:</DataRow>
-          <DataRow>Projected (7 days): {calculateProjectedCases(7)}</DataRow>
-        </div>
-      </div>
-    </Container>
-  );
-};
+      </Container>
+    );
+  }
+}
 
 export default Dashboard;

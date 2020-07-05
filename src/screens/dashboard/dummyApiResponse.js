@@ -1,6 +1,11 @@
 export const data = {
   risk: "Very High",
-  cases: [
+  casesToDate: 5000,
+  activeCases: 3000,
+  deaths: 200,
+  recovered: 1700,
+  casesPerDay: [
+    // known data
     { x: -14, y: 105 },
     { x: -13, y: 110 },
     { x: -12, y: 120 },
@@ -15,6 +20,7 @@ export const data = {
     { x: -3, y: 510 },
     { x: -2, y: 550 },
     { x: -1, y: 600 },
+    // projections
     { x: 0, y: 640 },
     { x: 0.5, y: null },
     { x: 1, y: 680 },
