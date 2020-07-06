@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import React from 'react';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
-import SearchIcon from '@material-ui/icons/SearchOutlined';
-import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
+import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import logo from '../assets/images/logo.png'
+import {Link} from 'react-router-dom';
 const MenuContainer = styled.div`
+    z-index: 999;
     padding-top: 50px;
     background: #F9F8FF;
     height: 100%;
@@ -13,7 +15,7 @@ const MenuContainer = styled.div`
     position: absolute;
     display: grid;
     grid-template-rows: repeat(4, 100px);
-    && > button {
+    && > a {
         margin: 0px 14%;
         & > span > svg {
             z-index: 50;
@@ -31,14 +33,14 @@ const SideMenu = () => {
     return (
         <MenuContainer>
             <Logo src={logo}></Logo>
-            <IconButton>
+            <IconButton to="/dashboard" component={Link}>
                 <HomeIcon/>
             </IconButton>
-            <IconButton>
-                <SearchIcon/>
+            <IconButton to="/itinerary" component={Link}>
+                <AccessTimeOutlinedIcon/>
             </IconButton>
-            <IconButton>
-                <ReportProblemOutlinedIcon/>
+            <IconButton to="/" component={Link}>
+                <ExitToAppOutlinedIcon/>
             </IconButton>
         </MenuContainer>
     )
