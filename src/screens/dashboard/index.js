@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
-
+import newsData from './newsData';
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
 import NewsFeed from '../../common/newsFeed';
@@ -114,11 +114,17 @@ const CardRow = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     grid-template-columns: repeat(2, minmax(400px, 700px)) minmax(300px, 300px) 450px;
+    grid-template-rows: 500px;
+
 `
 const RiskContainer = styled.div`
     display: flex; 
     justifyContent: end;
     margin: 20px 0;
+`
+const StyledCardContent = styled(CardContent)`
+    max-height: 420px;
+    overflow: scroll;
 `
 class Dashboard extends Component {
   constructor() {
@@ -143,10 +149,10 @@ class Dashboard extends Component {
                 <Card>
                 <CardHeader title="News Feed" />
                 <Divider/>
-                    <CardContent>
+                    <StyledCardContent>
                         
-                        <NewsFeed></NewsFeed>
-                    </CardContent>
+                        <NewsFeed news={newsData}></NewsFeed>
+                    </StyledCardContent>
                 </Card>
                 <Card>
                 <CardHeader title="Community Feed" />
