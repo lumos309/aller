@@ -1,26 +1,23 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import CanvasJSReact from "../../lib/canvasjs.react";
 
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
 import NewsFeed from '../../common/newsFeed';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import CardHeader from '@material-ui/core/CardHeader';
+import { render } from "@testing-library/react";
+
 /** Covid graph */
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const options = {
   animationEnabled: true,
-  exportEnabled: false,
+  exportEnabled: true,
   theme: "light2", // "light1", "dark1", "dark2"
-  width: "400",
-  height: "400",
+  width: "300",
+  height: "300",
   title: {
     text: ""
   },
@@ -109,6 +106,10 @@ const RiskIndicatorRight = styled.div`
 const DataRow = styled.div`
   font-weight: 600;
 `;
+const StyledButton = styled(Button)``;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
 
 const NearbyEvent = styled.div`
   width: 400px;
@@ -137,31 +138,6 @@ const ContentPanel = styled.div`
   width: 70vw;
 `;
 
-const DashboardContainer = styled.div`
-    width: 80vw;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-
-`
-
-const CardRow = styled.div`
-    display:grid;
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
-    grid-template-columns: repeat(2, minmax(400px, 700px)) minmax(300px, 300px) 450px;
-`
-const RiskContainer = styled.div`
-    display: flex; 
-    justifyContent: end;
-    margin: 20px 0;
-`
-
-const TrackerContainer = styled.div`
-    display: flex;
-    justifyContent: space-evenly;
-    flexWrap: wrap;
-`
 class Dashboard extends Component {
   constructor() {
     super();
@@ -179,71 +155,83 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <Header/>
-        <DashboardContainer>
-            <CardRow>
-                <Card>
-                <CardHeader title="News Feed" />
-                <Divider/>
-                    <CardContent>
-                        
-                        <NewsFeed></NewsFeed>
-                    </CardContent>
-                </Card>
-                <Card>
-                <CardHeader title="Community Feed" />
-                    <Divider/>
-                    <CardContent>
 
-                    </CardContent>
-                </Card>
-                <Card>
-                <CardHeader title="Latest Stats" />
-                <Divider/>
-                <CardContent>
-                  <RiskContainer>
+        <Header/>
+        <Container
+          style={{
+            fontFamily: "Gill Sans MT"
+          }}
+        >
+          <br />
+          <div style={{ background: "#b3e5fc", padding: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Tab
+                isSelected={this.state.activeTab === "tracker"}
+                value={"tracker"}
+                onClick={this.toggleActiveTab}
+              >
+                COVID-19 Tracker
+              </Tab>
+              <Tab
+                isSelected={this.state.activeTab === "happenings"}
+                value={"happenings"}
+                onClick={this.toggleActiveTab}
+              >
+                Recent Happenings Near Your Destinations
+              </Tab>
+            </div>
+            <ContentPanel>
+              {this.state.activeTab === "tracker" ? (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <RiskIndicator>
-                      <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
+                      <RiskIndicatorLeft>COVID-19 Risk</RiskIndicatorLeft>
                       <RiskIndicatorRight>
                         {data ? data.risk : "Loading..."}
                       </RiskIndicatorRight>
                     </RiskIndicator>
-                  </RiskContainer>
-                  <List>
-                        <ListItem divider>
-                            <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
-                        </ListItem>
-                    </List>
-                    </CardContent>
-                </Card>
+                  </div>
+                  <br />
 
-                <Card>
-                <CardHeader title="COVID-19 Tracker" />
-                <Divider/>
-                    <CardContent>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      flexWrap: "wrap"
+                    }}
+                  >
                     <div style={{ width: "45%", minWidth: "300px" }}>
                       <CanvasJSChart
                         options={options}
                         /* onRef = {ref => this.chart = ref} */
                       />
                     </div>
-                    </CardContent>
-                </Card>
-            </CardRow>
-
-        </DashboardContainer>
+                    <div style={{ width: "45%" }}>
+                      <DataRow>Total Cases To Date: {data.casesToDate}</DataRow>
+                      <DataRow>
+                        Projected (7 days): {calculateProjectedCases(7)}
+                      </DataRow>
+                      <DataRow>Active Cases: {data.activeCases}</DataRow>
+                      <DataRow>Recovered Cases: {data.recovered}</DataRow>
+                      <DataRow>Deaths: {data.deaths}</DataRow>
+                      <NewsFeed></NewsFeed>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <NearbyEvent>
+                      <h4>Metropolitan Museum of Art</h4>
+                      There are protests taking place nearby. Be careful when
+                      visiting this area.
+                    </NearbyEvent>
+                  </div>
+                </>
+              )}
+            </ContentPanel>
+          </div>
+        </Container>
       </>
     );
   }

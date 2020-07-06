@@ -24,7 +24,9 @@ const NewsFeed = () => {
         <NewsFeedContainer>
             <Paper>
                 <NewsContainer>
-                    <h1> test</h1>
+                    <p>
+                        Fake news
+                    </p>
                 </NewsContainer>
             </Paper>
         </NewsFeedContainer>
