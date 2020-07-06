@@ -72,12 +72,6 @@ const calculateProjectedCases = days => {
   return total;
 };
 
-const Container = styled.div`
-  display: grid;
-  justify-content: center;
-  width: 100vw;
-`;
-
 
 const RiskIndicator = styled.div`
   border-radius: 10px;
@@ -106,36 +100,6 @@ const RiskIndicatorRight = styled.div`
   line-height: 30px;
 `;
 
-const DataRow = styled.div`
-  font-weight: 600;
-`;
-
-const NearbyEvent = styled.div`
-  width: 400px;
-  height: 100px;
-  border-radius: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 10px;
-`;
-
-const Tab = styled.button`
-  background: ${props => (props.isSelected ? "white" : "#DDD")};
-  border-radius: 5px 5px 0px 0px;
-  height: 30px;
-  padding: 5px 10px;
-  outline: none;
-  border: none;
-  font-family: "Gill Sans MT";
-  font-size: 16px;
-`;
-
-const ContentPanel = styled.div`
-  padding: 25px 10px 10px 10px;
-  background: white;
-  border-radius: 20px;
-  min-height: 400px;
-  width: 70vw;
-`;
 
 const DashboardContainer = styled.div`
     width: 80vw;
@@ -155,12 +119,6 @@ const RiskContainer = styled.div`
     display: flex; 
     justifyContent: end;
     margin: 20px 0;
-`
-
-const TrackerContainer = styled.div`
-    display: flex;
-    justifyContent: space-evenly;
-    flexWrap: wrap;
 `
 class Dashboard extends Component {
   constructor() {
