@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
+import communityData from './communityData';
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
 import NewsFeed from '../../common/newsFeed';
+import CommunityFeed from '../../common/communityFeed';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
@@ -265,7 +267,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    return this.state.isGlobalTab ? (
+    return !this.state.isGlobalTab ? (
       <>
         <Header/>
         
@@ -288,9 +290,10 @@ class Dashboard extends Component {
                 <Card>
                 <CardHeader title="Community Feed" />
                     <Divider/>
-                    <CardContent>
-
-                    </CardContent>
+                    <StyledCardContent>
+                        
+                        <CommunityFeed reviews={communityData}></CommunityFeed>
+                    </StyledCardContent>
                 </Card>
                 <Card>
                 <CardHeader title="Latest Stats" />
