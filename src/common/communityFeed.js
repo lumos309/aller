@@ -5,13 +5,13 @@ import Divider from '@material-ui/core/Divider';
 
 
 
-const NewsFeedContainer = styled.div`
+const CommunityFeedContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(4, auto);
     grid-row-gap: 30px; 
 `
 
-const NewsContainer = styled.div`
+const ReviewContainer = styled.div`
     padding: 10px;
 `
 const MetaContainer = styled.div`
@@ -19,11 +19,12 @@ const MetaContainer = styled.div`
     grid-template-columns: auto auto;
     justify-content: space-between;
 `
+
 const Title = styled.div`
     font-weight: 600;
     margin-bottom: 5px;
 `
-const Description = styled.div`
+const Content = styled.div`
     font-weight: 400;
     font-size: 16px;
     margin: 20px 0;
@@ -31,6 +32,12 @@ const Description = styled.div`
 `
 const Author = styled.div`
     font-style: italic;
+    margin: auto 0;
+`
+
+const Username = styled.div`
+    font-style: italic;
+    color: #888;
     margin: auto 0;
 `
 const Image = styled.img`
@@ -42,33 +49,37 @@ const ContentContainer = styled.div`
     grid-template-columns: auto minmax(auto, 130px);
     grid-column-gap: 20px;
 `
-const NewsFeed = (props) => {
-    const {news} = props;
-    if (!news) return "Loading...";
+const CommunityFeed = (props) => {
+    const {reviews} = props;
+    if (!reviews) return "Loading...";
     return (
-        <NewsFeedContainer>
-            {news.map(item => {
+        <CommunityFeedContainer>
+            {reviews.map(review => {
                 return (<Paper>
-                            <NewsContainer>
-                                <Title>{item.title}</Title>
+                            <ReviewContainer>
+                                <MetaContainer>
+                                <Author>{review.author}</Author>
+                                <Username>{review.username}</Username>
+                                </MetaContainer>
+                                
                                 <Divider/>
                                 <ContentContainer>
-                                    <Description>{item.description}</Description>
-                                    <Image src={item.imageURL}></Image>
+                                    <Content>{review.content}</Content>
+                                    <Image src={review.imageURL}></Image>
                                 </ContentContainer>
 
                                 <Divider/>
                                 <MetaContainer>
-                                    <Author>{item.author}</Author>
-                                    <p>{item.date}</p>
+                                    <p>{'Trip Duration: ' + review.lengthOfStay}</p>
+                                    <p>{review.date}</p>
                                 </MetaContainer>
-                            </NewsContainer>
+                            </ReviewContainer>
                         </Paper>);
             })}
 
-        </NewsFeedContainer>
+        </CommunityFeedContainer>
     )
 }
 
 
-export default NewsFeed;
+export default CommunityFeed;
