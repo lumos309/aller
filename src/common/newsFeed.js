@@ -5,13 +5,9 @@ import SearchIcon from '@material-ui/icons/SearchOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import logo from '../assets/images/logo.png'
-import Paper from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 const NewsFeedContainer = styled.div`
-    padding-top: 50px;
-    background: #F9F8FF;
-    height: 100%;
     width: 150px;
-    position: absolute;
     display: grid;
     grid-template-rows: repeat(4, 100px);
 `

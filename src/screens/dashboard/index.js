@@ -5,8 +5,8 @@ import Button from "@material-ui/core/Button";
 import CanvasJSReact from "../../lib/canvasjs.react";
 
 import { data } from "./dummyApiResponse.js";
-
-import CoverImage from "../../assets/images/brooklyn.jpeg";
+import Header from '../../common/header';
+import NewsFeed from '../../common/newsFeed';
 import { render } from "@testing-library/react";
 
 /** Covid graph */
@@ -75,38 +75,6 @@ const Container = styled.div`
   width: 100vw;
 `;
 
-const Header = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  padding: 40px 0;
-  position: relative;
-`;
-
-const ImageHeader = styled.img`
-  width: 80%;
-  border-radius: 15px;
-  margin: auto 0;
-  filter: brightness(0.7);
-`;
-
-const HeaderTextContainer = styled.div`
-  position: absolute;
-  left: 13%;
-  top: 15%;
-`;
-
-const StyledH1 = styled.h1`
-  color: #fff;
-  font-size: 45px;
-`;
-
-const StyledH2 = styled.h2`
-  color: #fff;
-`;
-const StyledH3 = styled.h3`
-  color: #fff;
-`;
 
 const RiskIndicator = styled.div`
   border-radius: 10px;
@@ -187,14 +155,8 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <Header>
-          <ImageHeader src={CoverImage} alt={"NYC"} />
-          <HeaderTextContainer>
-            <StyledH1>Brooklyn Baby</StyledH1>
-            <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
-            <StyledH3>New York City, USA</StyledH3>
-          </HeaderTextContainer>
-        </Header>
+
+        <Header/>
         <Container
           style={{
             fontFamily: "Gill Sans MT"
@@ -257,6 +219,7 @@ class Dashboard extends Component {
                       <DataRow>Active Cases: {data.activeCases}</DataRow>
                       <DataRow>Recovered Cases: {data.recovered}</DataRow>
                       <DataRow>Deaths: {data.deaths}</DataRow>
+                      <NewsFeed></NewsFeed>
                     </div>
                   </div>
                 </>
