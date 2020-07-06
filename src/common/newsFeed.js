@@ -33,7 +33,15 @@ const Author = styled.div`
     font-style: italic;
     margin: auto 0;
 `
-
+const Image = styled.img`
+    width:100%;
+    margin: auto 0;
+`
+const ContentContainer = styled.div`
+    display: grid;
+    grid-template-columns: auto minmax(auto, 130px);
+    grid-column-gap: 20px;
+`
 const NewsFeed = (props) => {
     const {news} = props;
     return (
@@ -43,7 +51,11 @@ const NewsFeed = (props) => {
                             <NewsContainer>
                                 <Title>{item.title}</Title>
                                 <Divider/>
-                                <Description>{item.description}</Description>
+                                <ContentContainer>
+                                    <Description>{item.description}</Description>
+                                    <Image src={item.imageURL}></Image>
+                                </ContentContainer>
+
                                 <Divider/>
                                 <MetaContainer>
                                     <Author>{item.author}</Author>
