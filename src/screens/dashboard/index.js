@@ -3,10 +3,12 @@ import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
 import communityData from './communityData';
+import ratingsData from './ratingsData';
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
 import NewsFeed from '../../common/newsFeed';
 import CommunityFeed from '../../common/communityFeed';
+import Ratings from '../../common/ratings';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
@@ -14,8 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
-import {TextField, Button} from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import {Button} from '@material-ui/core';
 
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
@@ -123,7 +124,7 @@ const CardRow = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     grid-template-columns: repeat(2, minmax(400px, 700px)) minmax(300px, 300px) 450px;
-    grid-template-rows: 500px;
+    grid-template-rows: 500px 500px;
 
 `
 
@@ -278,6 +279,7 @@ class Dashboard extends Component {
         <DashboardContainer>
           
             <CardRow>
+                
                 <Card>
                 <CardHeader title="News Feed" />
                 
@@ -339,8 +341,17 @@ class Dashboard extends Component {
                     </div>
                     </CardContent>
                 </Card>
+                
+            <Card>
+                <CardHeader title="Travel Rating" />
+                <StyledCardContent>
+                        
+                        <Ratings ratings={ratingsData}></Ratings>
+                    </StyledCardContent>
+                </Card>
+            
             </CardRow>
-
+            
         </DashboardContainer>
       </>
     ) : (

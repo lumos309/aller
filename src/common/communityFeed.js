@@ -20,10 +20,6 @@ const MetaContainer = styled.div`
     justify-content: space-between;
 `
 
-const Title = styled.div`
-    font-weight: 600;
-    margin-bottom: 5px;
-`
 const Content = styled.div`
     font-weight: 400;
     font-size: 16px;

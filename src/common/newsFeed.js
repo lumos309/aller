@@ -3,8 +3,6 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 
-
-
 const NewsFeedContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(4, auto);
