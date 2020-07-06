@@ -12,6 +12,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
+import {TextField, Button} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+
+import NycImage from "../../assets/images/nyc.png";
+import ChinaImage from "../../assets/images/china.jpg";
+import JapanImage from "../../assets/images/japan.jpg";
+
 /** Covid graph */
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -117,37 +124,161 @@ const CardRow = styled.div`
     grid-template-rows: 500px;
 
 `
+
+const CardRowGlobal = styled.div`
+    display:grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    grid-template-columns: minmax(400px, 700px) minmax(500px, 900px) 450px;
+`
+
 const RiskContainer = styled.div`
     display: flex; 
     justifyContent: end;
     margin: 20px 0;
 `
+
+const StyledButton = styled(Button)`
+  position: absolute;
+  left: 200px;
+`
+/** global dashboard */
+const CountryImage = styled.div`
+  width: ${props => props.large ? "100px" : "70px"};
+  height: ${props => props.large ? "100px" : "70px"};
+  background: url(${(props)=>props.src}) center;
+  background-size: cover;
+  border-radius: 10px 10px 10px 10px;
+  justify-self: end;
+`
+
+const CardSubHeader = styled.div`
+  margin: 0px 0px 16px 16px;
+`
+
+const ListEntryCountryWatch = styled.div`
+  width: 95%;
+  display:grid;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  grid-template-columns: 30% 50% 20%;
+`
+
+const ListEntryCountryOverview = styled.div`
+  width: 100%;
+  display:grid;
+  grid-column-gap: 20px;
+  grid-row-gap: ${props => props.large ? "20px" : "10px"};
+  grid-template-rows: ${props => props.large ? "40% 40px" : "25% 40px"};
+`
+
+const ListEntryCountryName = styled.div`
+  width: 100%;
+  display:grid;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  grid-template-columns: 30% 60%;
+`
+
+const ListEntryDetails = styled.div`
+  display: grid;
+  grid-template-rows: 50% 50%;
+`
+
+const ListEntryDetailsRow = styled.div`
+  display: flex;
+`
+
+const HighlightedFigure = styled.div`
+  font-size: ${props => props.large ? "24px" : props.small ? "16px" : "20px"};
+  color: #66bb6a;
+  margin-right: 3px;
+`
+
+const RankingNumber = styled.div`
+  font-size: ${props => props.large ? "28px" : "18px"};
+`
+
+const SafetyRating = styled.div`
+  background: orange;
+  border-radius: 5px;
+  color: white;
+  padding: 3px 6px;
+`
+
+const SafetyRatingLabel = styled.div`
+  font-size: 9px;
+`
+
+const SafetyRatingValue = styled.div`
+  font-size: 20px;
+  display: flex;
+  align-items: flex-end;
+`
+
+const SafetyRatingValueTotal = styled.div`
+  font-size: 10px;
+  line-height: 16px;
+`
+
+const Rating = styled.div`
+  display: flex;
+`
+
+const RatingCircle = styled.div`
+  background: orange;
+  border: 2px solid #2196f3;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 6px;
+`
+const RatingLabel = styled.div`
+  font-size: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+
 const StyledCardContent = styled(CardContent)`
     max-height: 420px;
     overflow: scroll;
 `
+
 class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      activeTab: "tracker"
+      isGlobalTab: false
     };
   }
 
   toggleActiveTab = e => {
     this.setState({
-      activeTab: e.target.value
+      isGlobalTab: !this.state.isGlobalTab
     });
   };
 
   render() {
-    return (
+    return this.state.isGlobalTab ? (
       <>
         <Header/>
+        
+            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
+              Toggle Dashboard
+            </StyledButton>
+          
         <DashboardContainer>
+          
             <CardRow>
                 <Card>
                 <CardHeader title="News Feed" />
+                
                 <Divider/>
                     <StyledCardContent>
                         
@@ -206,6 +337,100 @@ class Dashboard extends Component {
                     </CardContent>
                 </Card>
             </CardRow>
+
+        </DashboardContainer>
+      </>
+    ) : (
+      <>
+        <Header/>
+            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
+              Toggle Dashboard
+            </StyledButton>     
+        <DashboardContainer>
+            <CardRowGlobal>
+                <Card>
+                <CardHeader title="Global Updates" />
+                <Divider/>
+                    <CardContent>
+                        
+                        <NewsFeed></NewsFeed>
+                    </CardContent>
+                </Card>
+                <Card>
+                <CardHeader title="Country Watch" />
+                <CardSubHeader>Check out which countries make the best travel destinations right now</CardSubHeader>
+                <Divider/>
+                <CardContent>
+                  <List>
+                        <ListItem divider>
+                            <ListEntryCountryWatch>
+                              <ListEntryCountryOverview large>
+                              <ListEntryCountryName large><RankingNumber large>#1</RankingNumber><div>New Zealand</div></ListEntryCountryName>
+                              <SafetyRating><SafetyRatingLabel>TRAVEL RATING</SafetyRatingLabel>
+                              <SafetyRatingValue>
+                                <div>89</div>
+                                <SafetyRatingValueTotal>/100</SafetyRatingValueTotal>
+                              </SafetyRatingValue>
+                              </SafetyRating>
+                              </ListEntryCountryOverview>
+                              
+                              <div>
+                                <div><HighlightedFigure large>60% fewer</HighlightedFigure> active cases of COVID-19</div>
+                                <div><HighlightedFigure large>24% lower</HighlightedFigure> prices for travel and hotels</div>
+                              </div>
+                              <CountryImage large src={NycImage}/>
+                            </ListEntryCountryWatch>                            
+                        </ListItem>
+                        <ListItem divider>
+                            <ListEntryCountryWatch>
+                            <ListEntryCountryOverview>
+                              <ListEntryCountryName><RankingNumber>#2</RankingNumber><div>China</div></ListEntryCountryName>
+                              <SafetyRating><SafetyRatingLabel>TRAVEL RATING</SafetyRatingLabel>
+                              <SafetyRatingValue>
+                                <div>84</div>
+                                <SafetyRatingValueTotal>/100</SafetyRatingValueTotal>
+                              </SafetyRatingValue>
+                              </SafetyRating>
+                              </ListEntryCountryOverview>
+                                <ListEntryDetails>
+                                  <ListEntryDetailsRow><HighlightedFigure>40% </HighlightedFigure><HighlightedFigure small>fewer</HighlightedFigure> active cases</ListEntryDetailsRow>
+                                  <ListEntryDetailsRow><HighlightedFigure>37% </HighlightedFigure><HighlightedFigure small>lower</HighlightedFigure> prices</ListEntryDetailsRow>
+                                </ListEntryDetails>
+                              <CountryImage src={ChinaImage}/>
+                            </ListEntryCountryWatch>                            
+                        </ListItem>
+                        
+                        <ListItem divider>
+                            <ListEntryCountryWatch>
+                            <ListEntryCountryOverview>
+                              <ListEntryCountryName><RankingNumber>#3</RankingNumber><div>Japan</div></ListEntryCountryName>
+                              <Rating><RatingCircle>79</RatingCircle><RatingLabel><div>TRAVEL</div> RATING</RatingLabel></Rating>
+                              </ListEntryCountryOverview>
+                                <ListEntryDetails>
+                                  <ListEntryDetailsRow><HighlightedFigure>46% </HighlightedFigure><HighlightedFigure small>fewer</HighlightedFigure> active cases</ListEntryDetailsRow>
+                                  <ListEntryDetailsRow><HighlightedFigure>29% </HighlightedFigure><HighlightedFigure small>lower</HighlightedFigure> prices</ListEntryDetailsRow>
+                                </ListEntryDetails>
+                              <CountryImage src={JapanImage}/>
+                            </ListEntryCountryWatch>                            
+                        </ListItem>
+                        
+                    </List>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                <CardHeader title="COVID-19 Tracker" />
+                <Divider/>
+                    <CardContent>
+                    <div style={{ width: "45%", minWidth: "300px" }}>
+                      <CanvasJSChart
+                        options={options}
+                        /* onRef = {ref => this.chart = ref} */
+                      />
+                    </div>
+                    </CardContent>
+                </Card>
+            </CardRowGlobal>
 
         </DashboardContainer>
       </>
