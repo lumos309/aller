@@ -38,7 +38,7 @@ color: #fff;
 const HeaderActionsContainer = styled.div`
     position absolute;
     width: 80vw;
-    top: 80%;
+    top: 70%;
 `
 const HeaderActions = styled.div`
     display: grid;
