@@ -31,23 +31,23 @@ const Questionnaire = () => {
     const marks = [
         {
             value: 2,
-            label: 'Unconfident'
+            label: 'Unconfident 😫'
         },
         {
             value: 4,
-            label: 'Confident'
+            label: '😄  Confident'
         },
     ]
 
     return (
         <Dialog fullWidth={true} maxWidth="md" open={!store.get('confidenceDialog')} onClose={handleClose} >
-            <DialogTitle>Thank you for choosing Aller!</DialogTitle>
+            <DialogTitle>Thank you for choosing Aller! 🎉</DialogTitle>
             <Divider/>
             <DialogContent>
                 <DialogContentText>
                     Before starting, we would like to know more about you!
                     <br/>
-                    Please answer these short questions :)
+                    Please answer these short questions 😊
                 </DialogContentText>
             </DialogContent>
             
