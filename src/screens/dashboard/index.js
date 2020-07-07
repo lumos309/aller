@@ -30,7 +30,7 @@ const options = {
   exportEnabled: false,
   theme: "light2", // "light1", "dark1", "dark2"
   width: "400",
-  height: "400",
+  height: "250",
   title: {
     text: ""
   },
@@ -85,7 +85,7 @@ const calculateProjectedCases = days => {
 
 const RiskIndicator = styled.div`
   border-radius: 10px;
-  width: 250px;
+  width: 200px;
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -145,6 +145,12 @@ const StyledButton = styled(Button)`
   position: absolute;
   left: 200px;
 `
+const CardHeaderWrapperCovid = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+`
+
 /** global dashboard */
 const CountryImage = styled.div`
   width: ${props => props.large ? "100px" : "70px"};
@@ -271,11 +277,9 @@ class Dashboard extends Component {
     return !this.state.isGlobalTab ? (
       <>
         <Header/>
-        
             <StyledButton variant="contained" onClick={this.toggleActiveTab}>
               Toggle Dashboard
-            </StyledButton>
-          
+            </StyledButton>     
         <DashboardContainer>
           
             <CardRow>
@@ -298,57 +302,56 @@ class Dashboard extends Component {
                     </StyledCardContent>
                 </Card>
                 <Card>
-                <CardHeader title="Latest Stats" />
+                
+          
+                <CardHeader title="Safety Measures" />
                 <Divider/>
-                <CardContent>
-                  <RiskContainer>
-                    <RiskIndicator>
+                <StyledCardContent>
+                        
+                        <Ratings ratings={ratingsData}></Ratings>
+                    </StyledCardContent>
+                    
+                </Card>
+
+                <Card>
+                  <CardHeaderWrapperCovid>
+                <CardHeader title="COVID-19 Tracker" />
+                <RiskIndicator>
                       <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
                       <RiskIndicatorRight>
                         {data ? data.risk : "Loading..."}
                       </RiskIndicatorRight>
                     </RiskIndicator>
-                  </RiskContainer>
-                  <List>
-                        <ListItem divider>
-                            <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
-                        </ListItem>
-                    </List>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                <CardHeader title="COVID-19 Tracker" />
+                    </CardHeaderWrapperCovid>
                 <Divider/>
-                    <CardContent>
-                    <div style={{ width: "45%", minWidth: "300px" }}>
-                      <CanvasJSChart
-                        options={options}
-                        /* onRef = {ref => this.chart = ref} */
-                      />
-                    </div>
-                    </CardContent>
-                </Card>
-                
-            <Card>
-                <CardHeader title="Travel Rating" />
-                <StyledCardContent>
-                        
-                        <Ratings ratings={ratingsData}></Ratings>
+                    <StyledCardContent>
+                      <div style={{ width: "45%", minWidth: "300px" }}>
+                        <CanvasJSChart
+                          options={options}
+                          /* onRef = {ref => this.chart = ref} */
+                        />
+                      </div>
+                      <List>
+                          <ListItem divider>
+                              <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
+                          </ListItem>
+                          <ListItem divider>
+                              <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
+                          </ListItem>
+                          <ListItem divider>
+                              <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
+                          </ListItem>
+                          <ListItem divider>
+                              <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
+                          </ListItem>
+                          <ListItem divider>
+                              <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
+                          </ListItem>
+                      </List>
                     </StyledCardContent>
                 </Card>
+                
+            
             
             </CardRow>
             
