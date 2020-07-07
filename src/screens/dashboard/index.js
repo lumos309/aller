@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
@@ -16,8 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
-import {Button} from '@material-ui/core';
-import Questionnaire from '../../common/questionnaire';
+import ConfidenceDialog from '../../common/confidenceDialog';
 
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
@@ -136,16 +135,6 @@ const CardRowGlobal = styled.div`
     grid-template-columns: minmax(400px, 700px) minmax(500px, 900px) 450px;
 `
 
-const RiskContainer = styled.div`
-    display: flex; 
-    justifyContent: end;
-    margin: 20px 0;
-`
-
-const StyledButton = styled(Button)`
-  position: absolute;
-  left: 200px;
-`
 const CardHeaderWrapperCovid = styled.div`
   display: flex;
   justify-content: space-between;
@@ -270,7 +259,7 @@ const Dashboard = () => {
     return (
       <>
         <Header handleToggleActiveTab={handleToggleActiveTab} />
-        <Questionnaire></Questionnaire>
+        <ConfidenceDialog/>
         {!globalTab && <DashboardContainer>
 
         <CardRow>

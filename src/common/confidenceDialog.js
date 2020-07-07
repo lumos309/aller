@@ -18,7 +18,7 @@ const StyledTextField = styled(TextField)`
 `
 
 
-const Questionnaire = () => {
+const ConfidenceDialog = () => {
 
     const store = GlobalStore();
     const handleClose = () => {
@@ -96,4 +96,4 @@ const Questionnaire = () => {
 
 }
 
-export default Questionnaire;
+export default ConfidenceDialog;

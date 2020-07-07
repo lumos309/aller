@@ -88,7 +88,7 @@ const Header = props => {
     <HeaderContainer>
         <LocationHero src={coverPhoto}></LocationHero>
         <HeaderTextContainer>
-            <StyledH1>Brooklyn Baby</StyledH1>
+            <StyledH1>🌭 Brooklyn Baby 🇺🇲 </StyledH1>
             <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
             <StyledH3>New York City, USA</StyledH3>
         </HeaderTextContainer>
