@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
 import communityData from './communityData';
+import globalCommunityData from './globalCommunityData';
 import ratingsData from './ratingsData';
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
@@ -339,10 +340,10 @@ const Dashboard = () => {
                 <Card>
                 <CardHeader title="What's everyone saying?" />
                 <Divider/>
-                    <CardContent>
+                    <StyledCardContent>
                         
-                    <CommunityFeed reviews={communityData}></CommunityFeed>
-                    </CardContent>
+                    <CommunityFeed reviews={globalCommunityData}></CommunityFeed>
+                    </StyledCardContent>
                 </Card>
                 <Card>
                 <CardHeader title="Country Watch" />
