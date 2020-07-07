@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
@@ -17,6 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
 import {Button} from '@material-ui/core';
+import Questionnaire from '../../common/questionnaire';
 
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
@@ -259,25 +260,18 @@ const StyledCardContent = styled(CardContent)`
     overflow: scroll;
 `
 
-class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isGlobalTab: false
+const Dashboard = () => {
+    const [isGlobalTab, setGlobalTab] = useState(true);
+    const handleToggleActiveTab = () => {
+        setGlobalTab(!isGlobalTab);
     };
-  }
-
-  toggleActiveTab = e => {
-    this.setState({
-      isGlobalTab: !this.state.isGlobalTab
-    });
-  };
-
-  render() {
-    return !this.state.isGlobalTab ? (
+ 
+  
+    return isGlobalTab? (
       <>
+      <Questionnaire></Questionnaire>
         <Header/>
-            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
+            <StyledButton variant="contained" onClick={handleToggleActiveTab}>
               Toggle Dashboard
             </StyledButton>     
         <DashboardContainer>
@@ -360,7 +354,7 @@ class Dashboard extends Component {
     ) : (
       <>
         <Header/>
-            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
+            <StyledButton variant="contained" onClick={handleToggleActiveTab}>
               Toggle Dashboard
             </StyledButton>     
         <DashboardContainer>
@@ -453,6 +447,7 @@ class Dashboard extends Component {
       </>
     );
   }
-}
+
+
 
 export default Dashboard;
