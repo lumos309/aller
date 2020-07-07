@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import React from 'react';
 import coverPhoto from '../assets/images/brooklyn.jpeg';
+import {Link} from 'react-router-dom';
 
 import ProgressRing from "../lib/progressRing";
 
@@ -34,11 +35,16 @@ color: #fff;
 const StyledH3 = styled.h3`
 color: #fff;
 `
+const HeaderActionsContainer = styled.div`
+    position absolute;
+    width: 80vw;
+    top: 80%;
+`
 const HeaderActions = styled.div`
-position absolute;
-top: 80%;
-display: grid;
-left:78%;
+    display: grid;
+    grid-template-columns: 300px 300px;
+    justify-content: space-between;
+    margin: 0 30px;
 `
 
 const AddButton = styled(Button)`
@@ -74,17 +80,31 @@ const Score = styled.div`
     font-size: 40px;
     color: white;
 `
-
+const StyledButton = styled(Button)`
+  position: absolute;
+  left: 200px;
+`
 const Header = props => {
-    return !props.isLocation ? (
+    const { handleToggleActiveTab } = props; 
+    return (
     <HeaderContainer>
         <LocationHero src={props.coverPhoto ?? coverPhoto}></LocationHero>
         <HeaderTextContainer>
-            <StyledH1>Brooklyn Baby</StyledH1>
-            <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
-            <StyledH3>New York City, USA</StyledH3>
+            {props.isLocation ? (
+                <>
+                <StyledH1>{props.locationName ?? "Hard Rock Hotel"}</StyledH1>
+                <StyledH2>{props.locationVenue ?? "New York City, USA"}</StyledH2>
+                </>
+            ) : (
+                <>
+                <StyledH1>🌭 Brooklyn Baby 🇺🇲 </StyledH1>
+                <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
+                <StyledH3>New York City, USA</StyledH3>
+                </>
+            )}
+            
         </HeaderTextContainer>
-        {props.safetyScore ? (
+        {props.isCountryTab ? (
             <HeaderStatsContainer>
             <HeaderStatsContainerRow>
                 <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
@@ -95,35 +115,19 @@ const Header = props => {
                 <div style={{height: "90px"}}>PRICE RATING</div>
             </HeaderStatsContainerRow>
         </HeaderStatsContainer>
-        ): null}
-        <HeaderActions>
-            <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
-        </HeaderActions>
+        ) : null}
+        {window.location.pathname === '/dashboard' && <HeaderActionsContainer>
+            <HeaderActions>
+                <AddButton variant="outlined" onClick={handleToggleActiveTab}>
+                View World/Country
+                </AddButton>     
+                <AddButton component={Link} to="/itinerary" variant="outlined">Add Itinerary <AddIcon/></AddButton>
+            </HeaderActions>
+        </HeaderActionsContainer>
+        }
+
     </HeaderContainer>
-) : (
-    <HeaderContainer>
-        <LocationHero src={props.coverPhoto ?? coverPhoto}></LocationHero>
-        <HeaderTextContainer>
-            <StyledH1>{props.locationName ?? "Hard Rock Hotel"}</StyledH1>
-            <StyledH2>{props.locationVenue ?? "New York City, USA"}</StyledH2>
-        </HeaderTextContainer>
-        {props.safetyScore ? (
-            <HeaderStatsContainer>
-            <HeaderStatsContainerRow>
-                <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
-                <div style={{height: "90px"}}>SAFETY RATING</div>
-            </HeaderStatsContainerRow>
-            <HeaderStatsContainerRow>
-                <div><ProgressRing progress={props.priceScore ?? 88} stroke={4} radius={45} /><Score>{props.priceScore ?? 88}</Score></div>
-                <div style={{height: "90px"}}>PRICE RATING</div>
-            </HeaderStatsContainerRow>
-        </HeaderStatsContainer>
-        ): null}
-        <HeaderActions>
-            <AddButton variant="outlined">Add to Itinerary <AddIcon/></AddButton>
-        </HeaderActions>
-    </HeaderContainer>
-)
+) 
 }
 
 

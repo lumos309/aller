@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
-import {Button} from '@material-ui/core';
+import ConfidenceDialog from '../../common/confidenceDialog';
 
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
@@ -135,10 +135,6 @@ const CardRowGlobal = styled.div`
     grid-template-columns: minmax(400px, 700px) minmax(500px, 900px) 450px;
 `
 
-const StyledButton = styled(Button)`
-  position: absolute;
-  left: 200px;
-`
 const CardHeaderWrapperCovid = styled.div`
   display: flex;
   justify-content: space-between;
@@ -253,110 +249,90 @@ const StyledCardContent = styled(CardContent)`
     overflow: scroll;
 `
 
-class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isGlobalTab: false
+const Dashboard = () => {
+    const [globalTab, setGlobalTab] = useState(true);
+    const handleToggleActiveTab = () => {
+        setGlobalTab(!globalTab);
     };
-  }
-
-  toggleActiveTab = e => {
-    this.setState({
-      isGlobalTab: !this.state.isGlobalTab
-    });
-  };
-
-  render() {
-    return !this.state.isGlobalTab ? (
+ 
+  
+    return (
       <>
-        <Header safetyScore={65} priceScore={88}/>
-            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
-              Toggle Dashboard
-            </StyledButton>     
-        <DashboardContainer>
-          
-            <CardRow>
-                
-                <Card>
-                <CardHeader title="News Feed" />
-                
-                <Divider/>
-                    <StyledCardContent>
-                        
-                        <NewsFeed news={newsData}></NewsFeed>
-                    </StyledCardContent>
-                </Card>
-                <Card>
-                <CardHeader title="Community Feed" />
-                    <Divider/>
-                    <StyledCardContent>
-                        
-                        <CommunityFeed reviews={communityData}></CommunityFeed>
-                    </StyledCardContent>
-                </Card>
-                <Card>
-                
-          
-                <CardHeader title="Safety Measures" />
+        <Header safetyScore={65} priceScore={88} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
+        <ConfidenceDialog/>
+        {!globalTab && <DashboardContainer>
+
+        <CardRow>
+            
+            <Card>
+            <CardHeader title="News Feed" />
+            
+            <Divider/>
+                <StyledCardContent>
+                    
+                    <NewsFeed news={newsData}></NewsFeed>
+                </StyledCardContent>
+            </Card>
+            <Card>
+            <CardHeader title="Community Feed" />
                 <Divider/>
                 <StyledCardContent>
-                        
-                        <Ratings ratings={ratingsData}></Ratings>
-                    </StyledCardContent>
                     
-                </Card>
+                    <CommunityFeed reviews={communityData}></CommunityFeed>
+                </StyledCardContent>
+            </Card>
+            <Card>
+            
 
-                <Card>
-                  <CardHeaderWrapperCovid>
-                <CardHeader title="COVID-19 Tracker" />
-                <RiskIndicator>
-                      <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
-                      <RiskIndicatorRight>
-                        {data ? data.risk : "Loading..."}
-                      </RiskIndicatorRight>
-                    </RiskIndicator>
-                    </CardHeaderWrapperCovid>
-                <Divider/>
-                    <StyledCardContent>
-                      <div style={{ width: "45%", minWidth: "300px" }}>
-                        <CanvasJSChart
-                          options={options}
-                          /* onRef = {ref => this.chart = ref} */
-                        />
-                      </div>
-                      <List>
-                          <ListItem divider>
-                              <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
-                          </ListItem>
-                      </List>
-                    </StyledCardContent>
-                </Card>
+            <CardHeader title="Safety Measures" />
+            <Divider/>
+            <StyledCardContent>
+                    
+                    <Ratings ratings={ratingsData}></Ratings>
+                </StyledCardContent>
                 
-            
-            
-            </CardRow>
-            
-        </DashboardContainer>
-      </>
-    ) : (
-      <>
-        <Header/>
-            <StyledButton variant="contained" onClick={this.toggleActiveTab}>
-              Toggle Dashboard
-            </StyledButton>     
+            </Card>
+
+            <Card>
+            <CardHeaderWrapperCovid>
+            <CardHeader title="COVID-19 Tracker" />
+            <RiskIndicator>
+                <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
+                <RiskIndicatorRight>
+                    {data ? data.risk : "Loading..."}
+                </RiskIndicatorRight>
+                </RiskIndicator>
+                </CardHeaderWrapperCovid>
+            <Divider/>
+                <StyledCardContent>
+                <div style={{ width: "45%", minWidth: "300px" }}>
+                    <CanvasJSChart
+                    options={options}
+                    /* onRef = {ref => this.chart = ref} */
+                    />
+                </div>
+                <List>
+                    <ListItem divider>
+                        <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
+                    </ListItem>
+                </List>
+                </StyledCardContent>
+            </Card>
+        </CardRow>
+        </DashboardContainer>}
+     {globalTab && 
         <DashboardContainer>
             <CardRowGlobal>
                 <Card>
@@ -443,10 +419,11 @@ class Dashboard extends Component {
                 </Card>
             </CardRowGlobal>
 
-        </DashboardContainer>
-      </>
+        </DashboardContainer>}
+    </>
     );
   }
-}
+
+
 
 export default Dashboard;

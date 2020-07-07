@@ -46,7 +46,7 @@ const NewsFeed = (props) => {
     return (
         <NewsFeedContainer>
             {news.map(item => {
-                return (<Paper>
+                return (<Paper key={item.id}>
                             <NewsContainer>
                                 <Title>{item.title}</Title>
                                 <Divider/>

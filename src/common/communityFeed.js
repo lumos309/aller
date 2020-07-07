@@ -70,7 +70,7 @@ const CommunityFeed = (props) => {
     return (
         <CommunityFeedContainer>
             {reviews.map(review => {
-                return (<Paper>
+                return (<Paper key={review.id}>
                             <ReviewContainer>
                                 <MetaContainer>
                                 <MetaContainerUser>

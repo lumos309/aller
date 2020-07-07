@@ -5,6 +5,7 @@ import Avatar4 from "../../assets/images/avatar.png";
 
 const communityFeed = [
 {
+    id: 1,
     content: 'Had a great time despite all the social distancing requirements. Local government enforces measures strictly and effectively',
     date: '07/07/2020',
     author: 'Noah A.',
@@ -13,6 +14,7 @@ const communityFeed = [
     lengthOfStay: '4 days'
 },
 {
+    id: 2,
     content: "Avoid the city hall and surrounding areas during this critical period and you'll be fine.",
     date: '06/07/2020',
     author: 'Peter Ofmar',
@@ -20,6 +22,7 @@ const communityFeed = [
     imageURL: Avatar2,
     lengthOfStay: '7 days'
 },{
+    id: 3,
     content: 'Lovely weather this time of year. Great to see locals all waering masks and abiding by safe distancing guidlines',
     date: '29/06/2020',
     author: 'Wilson P.',
@@ -28,6 +31,7 @@ const communityFeed = [
     lengthOfStay: '2 days'
 },
 {
+    id: 4,
     content: "The big hotel I stayed at had virtually no health precautions in place. Stay away! Not namedropping it but you know "
         + "which one I'm talking about. It's the really famous one.",
     date: '19/06/2020',
