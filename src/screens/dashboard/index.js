@@ -337,11 +337,11 @@ const Dashboard = () => {
         <DashboardContainer>
             <CardRowGlobal>
                 <Card>
-                <CardHeader title="Global Updates" />
+                <CardHeader title="What's everyone saying?" />
                 <Divider/>
                     <CardContent>
                         
-                        <NewsFeed></NewsFeed>
+                    <CommunityFeed reviews={communityData}></CommunityFeed>
                     </CardContent>
                 </Card>
                 <Card>

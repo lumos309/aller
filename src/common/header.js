@@ -94,13 +94,13 @@ const Header = props => {
                 </>
             ) : (
                 <>
-                {isCountryTab && 
+                {(isCountryTab || window.location.pathname === '/itinerary') && 
                 <div>
                     <StyledH1>🌭 Brooklyn Baby 🇺🇲 </StyledH1>
                     <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
                     <StyledH3>New York City, USA</StyledH3>
                 </div>}
-                {!isCountryTab &&
+                {!isCountryTab &&  window.location.pathname === '/dashboard'  &&
                 <div>
                     <StyledH1> The 🌍 is your Oyster </StyledH1>
                     <StyledH2> Start exploring these countries now!</StyledH2>
