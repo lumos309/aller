@@ -267,7 +267,7 @@ const Dashboard = () => {
         <CardRow>
             
             <Card>
-            <CardHeader title="News Feed" />
+            <CardHeader title="Local Highlights" />
             
             <Divider/>
                 <StyledCardContent>
@@ -276,7 +276,7 @@ const Dashboard = () => {
                 </StyledCardContent>
             </Card>
             <Card>
-            <CardHeader title="Community Feed" />
+            <CardHeader title="Visitors are saying.." />
                 <Divider/>
                 <StyledCardContent>
                     
