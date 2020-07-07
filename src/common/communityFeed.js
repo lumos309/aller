@@ -3,8 +3,6 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 
-
-
 const CommunityFeedContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(4, auto);
@@ -18,6 +16,31 @@ const MetaContainer = styled.div`
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
+    margin-bottom: 3px;
+`
+
+const MetaContainerUser = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+`
+
+const MetaContainerUserDetails = styled.div`
+    display: flex;
+    flex-direction: column;
+    grid-template-rows: auto auto;
+    justify-content: center;
+`
+
+const MetaContainerDate = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+`
+
+const MetaTripDuration = styled.div`
+    margin: 10px 0px 3px 0px;
 `
 
 const Content = styled.div`
@@ -28,17 +51,18 @@ const Content = styled.div`
 `
 const Author = styled.div`
     font-style: italic;
-    margin: auto 0;
+    margin: 0px 5px;
 `
 
 const Username = styled.div`
     font-style: italic;
     color: #888;
-    margin: auto 0;
+    margin: 0px 5px;
 `
 const Image = styled.img`
-    width:100%;
+    width: 50px;
     margin: auto 0;
+    border-radius: 50%;
 `
 const ContentContainer = styled.div`
     display: grid;
@@ -54,21 +78,23 @@ const CommunityFeed = (props) => {
                 return (<Paper>
                             <ReviewContainer>
                                 <MetaContainer>
+                                <MetaContainerUser>
+                                <Image src={review.imageURL}></Image>
+                                <MetaContainerUserDetails>
                                 <Author>{review.author}</Author>
                                 <Username>{review.username}</Username>
+                                </MetaContainerUserDetails>
+                                </MetaContainerUser>
+                                <MetaContainerDate>{review.date}</MetaContainerDate>
                                 </MetaContainer>
                                 
                                 <Divider/>
-                                <ContentContainer>
-                                    <Content>{review.content}</Content>
-                                    <Image src={review.imageURL}></Image>
-                                </ContentContainer>
-
+                                    <Content>"{review.content}"</Content>
                                 <Divider/>
-                                <MetaContainer>
-                                    <p>{'Trip Duration: ' + review.lengthOfStay}</p>
-                                    <p>{review.date}</p>
-                                </MetaContainer>
+                                
+                                    <MetaTripDuration>{'Trip Duration: ' + review.lengthOfStay}</MetaTripDuration>
+                        
+                               
                             </ReviewContainer>
                         </Paper>);
             })}
