@@ -21,7 +21,8 @@ import ConfidenceDialog from '../../common/confidenceDialog';
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
 import JapanImage from "../../assets/images/japan.jpg";
-
+import BrooklynImage from '../../assets/images/brooklyn.jpeg';
+import WorldImage from '../../assets/images/world.jpg';
 /** Covid graph */
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -258,7 +259,7 @@ const Dashboard = () => {
   
     return (
       <>
-        <Header safetyScore={65} priceScore={88} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
+        <Header safetyScore={65} priceScore={88} coverPhoto={globalTab ? WorldImage : BrooklynImage} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
         <ConfidenceDialog/>
         {!globalTab && <DashboardContainer>
 
