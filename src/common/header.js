@@ -104,7 +104,7 @@ const Header = props => {
         <HeaderActionsContainer>
             <HeaderActions>
                 <AddButton variant="outlined" onClick={handleToggleActiveTab}>
-                Toggle Dashboard
+                View World/Country
                 </AddButton>     
                 <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
             </HeaderActions>

@@ -270,7 +270,7 @@ const Dashboard = () => {
     return (
       <>
         <Header handleToggleActiveTab={handleToggleActiveTab} />
-        {globalTab && <DashboardContainer>
+        {!globalTab && <DashboardContainer>
 
         <CardRow>
             
@@ -342,7 +342,7 @@ const Dashboard = () => {
             </Card>
         </CardRow>
         </DashboardContainer>}
-     {!globalTab && 
+     {globalTab && 
         <DashboardContainer>
             <CardRowGlobal>
                 <Card>
