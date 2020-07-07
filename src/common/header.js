@@ -109,7 +109,7 @@ const Header = props => {
             )}
             
         </HeaderTextContainer>
-        {isCountryTab ? (
+        {isCountryTab || window.location.pathname === '/itinerary' ? (
             <HeaderStatsContainer>
             <HeaderStatsContainerRow>
                 <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
