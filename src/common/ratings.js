@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
+import OpenInNewIcon from "../assets/images/open_in_new.png";
+
 import ProgressRing from "../lib/progressRing";
 
 const CommunityFeedContainer = styled.div`
@@ -48,6 +50,24 @@ const SubContentContainer = styled.div`
     display: grid;
     grid-template-rows: auto;
     grid-row-gap: 5px;
+`
+
+const Source = styled.span`
+    background: #ff8a65;
+    font-size: 11px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    width: auto;
+    color: white;
+    position: relative;
+`
+
+const Icon = styled.img`
+    position: relative;
+    width: 12px;
+    margin-left: 3px;
+    text-align: center;
+    top: 2px;
 `
 
 const StyledLinearProgress = withStyles(() => ({
@@ -110,12 +130,19 @@ const Ratings = (props) => {
                                 <SubContentContainer>
                                     {!rating.subcategories ? null : rating.subcategories.map(subcategory => {
                                         return (
-                                        <div>
+                                            <>
+                                        <div style={{marginBottom: "5px"}}>
                                         <LinearProgressWithLabel variant="determinate" value={subcategory.score} title={subcategory.title} />
                                             <Typography variant="body2" color="textSecondary">{subcategory.description}</Typography>
+                                            
+                                                <Source>{subcategory.source}<Icon src={OpenInNewIcon} alt={"Open"}></Icon>
+                                                </Source>
+                                               
                                         </div>
+                                        </>
                                         )
                                     })}
+                                    
                                 </SubContentContainer>
                                 
                             </RatingsContainer>
