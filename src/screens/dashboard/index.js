@@ -124,7 +124,7 @@ const CardRow = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     grid-template-columns: repeat(2, minmax(400px, 700px)) minmax(300px, 300px) 450px;
-    grid-template-rows: 500px 500px;
+    grid-template-rows: 500px;
 
 `
 
