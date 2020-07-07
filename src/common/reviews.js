@@ -3,6 +3,9 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 
+import StarFilled from "../assets/images/star_filled.png";
+import StarUnfilled from "../assets/images/star_unfilled.png";
+
 const CommunityFeedContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(4, auto);
@@ -10,7 +13,7 @@ const CommunityFeedContainer = styled.div`
 `
 
 const ReviewContainer = styled.div`
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
 `
 const MetaContainer = styled.div`
     display: grid;
@@ -34,13 +37,13 @@ const MetaContainerUserDetails = styled.div`
 
 const MetaContainerDate = styled.div`
     display: flex;
+    font-style: italic;
+    font-size: 12px;
     flex-direction: column;
     justify-content: flex-end;
     margin-bottom: 5px;
-`
+    color: #888;
 
-const MetaTripDuration = styled.div`
-    margin: 10px 0px 3px 0px;
 `
 
 const Content = styled.div`
@@ -50,12 +53,14 @@ const Content = styled.div`
     color: #706765;
 `
 const Author = styled.div`
-    font-style: italic;
+
+    font-size: 12px;
     margin: 0px 5px;
 `
 
 const Username = styled.div`
     font-style: italic;
+    font-size: 12px;
     color: #888;
     margin: 0px 5px;
 `
@@ -64,7 +69,29 @@ const Image = styled.img`
     margin: auto 0;
     border-radius: 50%;
 `
-const CommunityFeed = (props) => {
+
+const Star = styled.img`
+    object-fit: cover;
+    width: 12px;
+`
+
+const StarsContainer = styled.div`
+    display: flex;
+    margin: 0px 5px;
+`
+
+const Stars = props => {
+    const stars = [];
+    for (let i = 1; i <= props.n; i++) {
+        stars.push(<Star src={StarFilled} alt={"X"} />);
+    }
+    for (let i = props.n; i < 5; i++) {
+        stars.push(<Star src={StarUnfilled} alt={"X"} />);
+    }
+    return stars;
+}
+
+const Reviews = (props) => {
     const {reviews} = props;
     if (!reviews) return "Loading...";
     return (
@@ -78,6 +105,7 @@ const CommunityFeed = (props) => {
                                 <MetaContainerUserDetails>
                                 <Author>{review.author}</Author>
                                 <Username>{review.username}</Username>
+                                <StarsContainer><Stars n={review.rating} /></StarsContainer>
                                 </MetaContainerUserDetails>
                                 </MetaContainerUser>
                                 <MetaContainerDate>{review.date}</MetaContainerDate>
@@ -85,10 +113,6 @@ const CommunityFeed = (props) => {
                                 
                                 <Divider/>
                                     <Content>"{review.content}"</Content>
-                                <Divider/>
-                                
-                                    <MetaTripDuration>{'Trip Duration: ' + review.lengthOfStay}</MetaTripDuration>
-                        
                                
                             </ReviewContainer>
                         </Paper>);
@@ -99,4 +123,4 @@ const CommunityFeed = (props) => {
 }
 
 
-export default CommunityFeed;
+export default Reviews;

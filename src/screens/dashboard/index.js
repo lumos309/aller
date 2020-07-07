@@ -135,12 +135,6 @@ const CardRowGlobal = styled.div`
     grid-template-columns: minmax(400px, 700px) minmax(500px, 900px) 450px;
 `
 
-const RiskContainer = styled.div`
-    display: flex; 
-    justifyContent: end;
-    margin: 20px 0;
-`
-
 const StyledButton = styled(Button)`
   position: absolute;
   left: 200px;
@@ -276,7 +270,7 @@ class Dashboard extends Component {
   render() {
     return !this.state.isGlobalTab ? (
       <>
-        <Header/>
+        <Header safetyScore={65} priceScore={88}/>
             <StyledButton variant="contained" onClick={this.toggleActiveTab}>
               Toggle Dashboard
             </StyledButton>     

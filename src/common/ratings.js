@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 import React from 'react';
-import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import OpenInNewIcon from "../assets/images/open_in_new.png";
-
-import ProgressRing from "../lib/progressRing";
 
 const CommunityFeedContainer = styled.div`
     display: grid;
@@ -19,31 +15,6 @@ const CommunityFeedContainer = styled.div`
 
 const RatingsContainer = styled.div`
     padding: 10px;
-`
-
-const Title = styled.div`
-    font-weight: 600;
-    margin-bottom: 5px;
-`
-const Content = styled.div`
-    font-weight: 400;
-    font-size: 16px;
-    color: #706765;
-`
-
-const Score = styled.div`
-    position: relative;
-    top: -85px;
-    right: -37px;
-    font-size: 40px;
-    color: white;
-`
-
-const ContentContainer = styled.div`
-    display: grid;
-    grid-template-columns: auto minmax(auto, 130px);
-    grid-column-gap: 20px;
-    margin: 10px 0px -25px 0px;
 `
 
 const SubContentContainer = styled.div`

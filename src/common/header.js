@@ -59,6 +59,8 @@ const LocationHero = styled.img`
     border-radius: 15px;
     margin: auto 0;
     filter: brightness(0.7);
+    
+    image-fit: cover;
 `
 const StyledH1 = styled.h1`
     color: #fff;
@@ -74,26 +76,51 @@ const Score = styled.div`
 `
 
 const Header = props => {
-    return (
+    return !props.isLocation ? (
     <HeaderContainer>
-        <LocationHero src={coverPhoto}></LocationHero>
+        <LocationHero src={props.coverPhoto ?? coverPhoto}></LocationHero>
         <HeaderTextContainer>
             <StyledH1>Brooklyn Baby</StyledH1>
             <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
             <StyledH3>New York City, USA</StyledH3>
         </HeaderTextContainer>
-        <HeaderStatsContainer>
+        {props.safetyScore ? (
+            <HeaderStatsContainer>
             <HeaderStatsContainerRow>
-                <div><ProgressRing progress={props.score ?? 65} stroke={4} radius={45} /><Score>{props.score ?? 65}</Score></div>
+                <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
                 <div style={{height: "90px"}}>SAFETY RATING</div>
             </HeaderStatsContainerRow>
             <HeaderStatsContainerRow>
-                <div><ProgressRing progress={props.score ?? 88} stroke={4} radius={45} /><Score>{props.score ?? 88}</Score></div>
+                <div><ProgressRing progress={props.priceScore ?? 88} stroke={4} radius={45} /><Score>{props.priceScore ?? 88}</Score></div>
                 <div style={{height: "90px"}}>PRICE RATING</div>
-            </HeaderStatsContainerRow>s
+            </HeaderStatsContainerRow>
         </HeaderStatsContainer>
+        ): null}
         <HeaderActions>
             <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
+        </HeaderActions>
+    </HeaderContainer>
+) : (
+    <HeaderContainer>
+        <LocationHero src={props.coverPhoto ?? coverPhoto}></LocationHero>
+        <HeaderTextContainer>
+            <StyledH1>{props.locationName ?? "Hard Rock Hotel"}</StyledH1>
+            <StyledH2>{props.locationVenue ?? "New York City, USA"}</StyledH2>
+        </HeaderTextContainer>
+        {props.safetyScore ? (
+            <HeaderStatsContainer>
+            <HeaderStatsContainerRow>
+                <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
+                <div style={{height: "90px"}}>SAFETY RATING</div>
+            </HeaderStatsContainerRow>
+            <HeaderStatsContainerRow>
+                <div><ProgressRing progress={props.priceScore ?? 88} stroke={4} radius={45} /><Score>{props.priceScore ?? 88}</Score></div>
+                <div style={{height: "90px"}}>PRICE RATING</div>
+            </HeaderStatsContainerRow>
+        </HeaderStatsContainer>
+        ): null}
+        <HeaderActions>
+            <AddButton variant="outlined">Add to Itinerary <AddIcon/></AddButton>
         </HeaderActions>
     </HeaderContainer>
 )
