@@ -17,6 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
 import ConfidenceDialog from '../../common/confidenceDialog';
+import ProgressRing from "../../lib/progressRing";
 
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
@@ -167,7 +168,7 @@ const ListEntryCountryOverview = styled.div`
   width: 100%;
   display:grid;
   grid-column-gap: 20px;
-  grid-row-gap: ${props => props.large ? "20px" : "10px"};
+  grid-row-gap: ${props => props.large ? "0px" : "10px"};
   grid-template-rows: ${props => props.large ? "40% 40px" : "25% 40px"};
 `
 
@@ -198,51 +199,29 @@ const RankingNumber = styled.div`
   font-size: ${props => props.large ? "28px" : "18px"};
 `
 
-const SafetyRating = styled.div`
-  background: orange;
-  border-radius: 5px;
-  color: white;
-  padding: 3px 6px;
-`
-
-const SafetyRatingLabel = styled.div`
-  font-size: 9px;
-`
-
-const SafetyRatingValue = styled.div`
-  font-size: 20px;
-  display: flex;
-  align-items: flex-end;
-`
-
-const SafetyRatingValueTotal = styled.div`
-  font-size: 10px;
-  line-height: 16px;
-`
-
 const Rating = styled.div`
-  display: flex;
-`
-
-const RatingCircle = styled.div`
-  background: orange;
-  border: 2px solid #2196f3;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 20px;
-  text-align: center;
-  line-height: 40px;
-  margin-right: 6px;
-`
-const RatingLabel = styled.div`
-  font-size: 9px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 70px 0px auto;
+  align-items: center;
   justify-content: center;
 `
 
+const RatingLabel = styled.div`
+  font-size: 9px;
+  width: 40px;
+`
+
+const Score = styled.div`
+    position: relative;
+    top: ${props => props.large ? "1px" : "1px"};
+    right: ${props => props.large ? "60px" : "56px"};
+    font-size: ${props => props.large ? "28px" : "20px"};
+    color: white;
+`
+
+const ProgressRingWrapper = styled.div`
+  margin-left: ${props => props.large ? "-10px" : "0px"};
+`
 
 const StyledCardContent = styled(CardContent)`
     max-height: 420px;
@@ -353,12 +332,11 @@ const Dashboard = () => {
                             <ListEntryCountryWatch>
                               <ListEntryCountryOverview large>
                               <ListEntryCountryName large><RankingNumber large>#1</RankingNumber><div>New Zealand</div></ListEntryCountryName>
-                              <SafetyRating><SafetyRatingLabel>TRAVEL RATING</SafetyRatingLabel>
-                              <SafetyRatingValue>
-                                <div>89</div>
-                                <SafetyRatingValueTotal>/100</SafetyRatingValueTotal>
-                              </SafetyRatingValue>
-                              </SafetyRating>
+                              <Rating>
+                                <ProgressRingWrapper large><ProgressRing progress={89} stroke={3} radius={35} /></ProgressRingWrapper>
+                                <Score large>89</Score>
+                                <RatingLabel><div>TRAVEL</div>RATING</RatingLabel>
+                              </Rating>
                               </ListEntryCountryOverview>
                               
                               <div>
@@ -372,12 +350,11 @@ const Dashboard = () => {
                             <ListEntryCountryWatch>
                             <ListEntryCountryOverview>
                               <ListEntryCountryName><RankingNumber>#2</RankingNumber><div>China</div></ListEntryCountryName>
-                              <SafetyRating><SafetyRatingLabel>TRAVEL RATING</SafetyRatingLabel>
-                              <SafetyRatingValue>
-                                <div>84</div>
-                                <SafetyRatingValueTotal>/100</SafetyRatingValueTotal>
-                              </SafetyRatingValue>
-                              </SafetyRating>
+                              <Rating>
+                                <ProgressRing progress={84} stroke={3} radius={25} />
+                                <Score>84</Score>
+                                <RatingLabel><div>TRAVEL</div>RATING</RatingLabel>
+                              </Rating>
                               </ListEntryCountryOverview>
                                 <ListEntryDetails>
                                   <ListEntryDetailsRow><HighlightedFigure>40% </HighlightedFigure><HighlightedFigure small>fewer</HighlightedFigure> active cases</ListEntryDetailsRow>
@@ -391,7 +368,11 @@ const Dashboard = () => {
                             <ListEntryCountryWatch>
                             <ListEntryCountryOverview>
                               <ListEntryCountryName><RankingNumber>#3</RankingNumber><div>Japan</div></ListEntryCountryName>
-                              <Rating><RatingCircle>79</RatingCircle><RatingLabel><div>TRAVEL</div> RATING</RatingLabel></Rating>
+                              <Rating>
+                                <ProgressRing progress={79} stroke={3} radius={25} />
+                                <Score>79</Score>
+                                <RatingLabel><div>TRAVEL</div>RATING</RatingLabel>
+                              </Rating>
                               </ListEntryCountryOverview>
                                 <ListEntryDetails>
                                   <ListEntryDetailsRow><HighlightedFigure>46% </HighlightedFigure><HighlightedFigure small>fewer</HighlightedFigure> active cases</ListEntryDetailsRow>

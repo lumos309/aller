@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import Button from '@material-ui/core/Button';
 import events from './data';
-import {Link} from 'react-router-dom';
+import {Link, Redirect } from 'react-router-dom';
 import Header from '../../common/header';
 
 const Container = styled.div`
@@ -34,10 +34,14 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
-
 const Itinerary = () => {
+    const [redirect, setRedirect] = useState(false);
+    const handleEventClick = e => {
+        setRedirect(true);
+    }
     return (
         <>
+        {redirect ? (<Redirect to="/location" />) : null}
         <Header/>
         <Container>
             <StyledLink to="/dashboard">
@@ -48,7 +52,7 @@ const Itinerary = () => {
 
 
             <CalendarContainer>
-                <FullCalendar headerToolbar={{left: false}} events={events} plugins={[timeGridPlugin]} initialView="timeGridWeek"/>
+                <FullCalendar headerToolbar={{left: false}} events={events} eventClick={handleEventClick} plugins={[timeGridPlugin]} initialView="timeGridWeek"/>
             </CalendarContainer>
 
         </Container>
