@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import events from './data';
 import {Link, Redirect } from 'react-router-dom';
 import Header from '../../common/header';
+import ItineraryDialog from '../../common/itineraryDialog';
 
 const Container = styled.div`
   display: grid;
@@ -42,6 +43,7 @@ const Itinerary = () => {
     return (
         <>
         {redirect ? (<Redirect to="/location" />) : null}
+        <ItineraryDialog/>
         <Header/>
         <Container>
             <StyledLink to="/dashboard">

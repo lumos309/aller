@@ -6,87 +6,68 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Slider from '@material-ui/core/Slider';
-import TextField from '@material-ui/core/TextField';
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import {GlobalStore} from 'global-store-hook';
+import styled from 'styled-components';
 
-const StyledTextField = styled(TextField)`
-    && {
-        margin: 20px 0;
-    }
+const StyledParagraph= styled.p`
+    text-align: center;
+    margin-bottom: 40px;
 `
-
-
 const ItineraryDialog = () => {
 
     const store = GlobalStore();
     const handleClose = () => {
-        store.set('confidenceDialog', true)
+        store.set('itineraryDialog', true)
     }
 
-    function confidence(value) {
-        return `${value}`;
+    function money(value) {
+        return `${value * 500}`;
     }
     const marks = [
         {
-            value: 2,
-            label: 'Unconfident 😫'
+            value: 10,
+            label: '< SGD 500 💸'
         },
         {
-            value: 4,
-            label: '😄  Confident'
+            value: 25,
+            label: ' SGD 1000 '
+        },
+        {
+            value: 50,
+            label: ' SGD 5000 '
+        },
+        {
+            value: 70,
+            label: ' SGD 7000 '
+        },
+        {
+            value: 90,
+            label: '> SGD 10000 💰'
         },
     ]
 
     return (
-        <Dialog fullWidth={true} maxWidth="md" open={!store.get('confidenceDialog')} onClose={handleClose} >
-            <DialogTitle>Thank you for choosing Aller! 🎉</DialogTitle>
+        <Dialog fullWidth={true} maxWidth="md" open={!store.get('itineraryDialog')} onClose={handleClose} >
+            <DialogTitle>Before you go...</DialogTitle>
             <Divider/>
             <DialogContent>
                 <DialogContentText>
-                    Before starting, we would like to know more about you!
-                    <br/>
-                    Please answer these short questions 😊
-                </DialogContentText>
-            </DialogContent>
-            
-            <DialogContent>
-                <DialogContentText>
-                    <p>How confident are you in booking a trip in the current climate?</p>
+                    <StyledParagraph>What is your Budget allocation for this trip?</StyledParagraph>
                     <Slider
-                        defaultValue={3}
-                        getAriaValueText={confidence}
+                        defaultValue={5}
+                        getAriaValueText={money}
                         aria-labelledby="discrete-slider"
                         valueLabelDisplay="auto"
-                        step={1}
                         marks={marks}
-                        min={1}
-                        max={5}
                     />
-                    <StyledTextField
-                        
-                        margin="dense"
-                        id="name"
-                        label="What concerns you when booking your trip?"
-                        type="text"
-                        fullWidth
-                    />
-                    <StyledTextField
-                        margin="dense"
-                        id="name"
-                        label="What's important to you when travelling to a location affected by COVID-19?"
-                        type="text"
-                        fullWidth
-                    />
-
                 </DialogContentText>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
-                        Answer Later
+                        I'm not going 😥
                     </Button>
                     <Button onClick={handleClose} color="primary">
-                        Let's go!
+                        Bon Voyage! 🛫
                     </Button>
                 </DialogActions>
             </DialogContent>

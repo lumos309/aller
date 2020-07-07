@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CanvasJSReact from "../../lib/canvasjs.react";
 import newsData from './newsData';
 import communityData from './communityData';
+import globalCommunityData from './globalCommunityData';
 import ratingsData from './ratingsData';
 import { data } from "./dummyApiResponse.js";
 import Header from '../../common/header';
@@ -22,7 +23,8 @@ import ProgressRing from "../../lib/progressRing";
 import NycImage from "../../assets/images/nyc.png";
 import ChinaImage from "../../assets/images/china.jpg";
 import JapanImage from "../../assets/images/japan.jpg";
-
+import BrooklynImage from '../../assets/images/brooklyn.jpeg';
+import WorldImage from '../../assets/images/world.jpg';
 /** Covid graph */
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -125,7 +127,7 @@ const CardRow = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     grid-template-columns: repeat(2, minmax(400px, 700px)) minmax(300px, 300px) 450px;
-    grid-template-rows: 500px 500px;
+    grid-template-rows: 500px;
 
 `
 
@@ -225,7 +227,7 @@ const ProgressRingWrapper = styled.div`
 
 const StyledCardContent = styled(CardContent)`
     max-height: 420px;
-    overflow: scroll;
+    overflow-y: scroll;
 `
 
 const Dashboard = () => {
@@ -237,7 +239,7 @@ const Dashboard = () => {
   
     return (
       <>
-        <Header safetyScore={65} priceScore={88} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
+        <Header safetyScore={65} priceScore={88} coverPhoto={globalTab ? WorldImage : BrooklynImage} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
         <ConfidenceDialog/>
         {!globalTab && <DashboardContainer>
 
@@ -315,12 +317,12 @@ const Dashboard = () => {
         <DashboardContainer>
             <CardRowGlobal>
                 <Card>
-                <CardHeader title="Global Updates" />
+                <CardHeader title="What's everyone saying?" />
                 <Divider/>
-                    <CardContent>
+                    <StyledCardContent>
                         
-                        <NewsFeed></NewsFeed>
-                    </CardContent>
+                    <CommunityFeed reviews={globalCommunityData}></CommunityFeed>
+                    </StyledCardContent>
                 </Card>
                 <Card>
                 <CardHeader title="Country Watch" />

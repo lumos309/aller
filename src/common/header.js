@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import React from 'react';
-import coverPhoto from '../assets/images/brooklyn.jpeg';
 import {Link} from 'react-router-dom';
 
 import ProgressRing from "../lib/progressRing";
 
 import AddIcon from '@material-ui/icons/Add';
+import BrooklynImage from '../assets/images/brooklyn.jpeg';
 
 const HeaderTextContainer = styled.div`
 position: absolute;
@@ -80,31 +80,36 @@ const Score = styled.div`
     font-size: 40px;
     color: white;
 `
-const StyledButton = styled(Button)`
-  position: absolute;
-  left: 200px;
-`
+
 const Header = props => {
-    const { handleToggleActiveTab } = props; 
+    const { handleToggleActiveTab, coverPhoto, isLocation, isCountryTab } = props; 
     return (
     <HeaderContainer>
-        <LocationHero src={props.coverPhoto ?? coverPhoto}></LocationHero>
+        <LocationHero src={coverPhoto ?? BrooklynImage }></LocationHero>
         <HeaderTextContainer>
-            {props.isLocation ? (
+            {isLocation ? (
                 <>
                 <StyledH1>{props.locationName ?? "Hard Rock Hotel"}</StyledH1>
                 <StyledH2>{props.locationVenue ?? "New York City, USA"}</StyledH2>
                 </>
             ) : (
                 <>
-                <StyledH1>🌭 Brooklyn Baby 🇺🇲 </StyledH1>
-                <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
-                <StyledH3>New York City, USA</StyledH3>
+                {(isCountryTab || window.location.pathname === '/itinerary') && 
+                <div>
+                    <StyledH1>🌭 Brooklyn Baby 🇺🇲 </StyledH1>
+                    <StyledH2>Jul 5 - Jul 7, 2020</StyledH2>
+                    <StyledH3>New York City, USA</StyledH3>
+                </div>}
+                {!isCountryTab &&  window.location.pathname === '/dashboard'  &&
+                <div>
+                    <StyledH1> The 🌍 is your Oyster </StyledH1>
+                    <StyledH2> Start exploring these countries now!</StyledH2>
+                </div>}
                 </>
             )}
             
         </HeaderTextContainer>
-        {props.isCountryTab ? (
+        {isCountryTab || window.location.pathname === '/itinerary' ? (
             <HeaderStatsContainer>
             <HeaderStatsContainerRow>
                 <div><ProgressRing progress={props.safetyScore ?? 65} stroke={4} radius={45} /><Score>{props.safetyScore ?? 65}</Score></div>
