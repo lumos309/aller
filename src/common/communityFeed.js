@@ -64,18 +64,13 @@ const Image = styled.img`
     margin: auto 0;
     border-radius: 50%;
 `
-const ContentContainer = styled.div`
-    display: grid;
-    grid-template-columns: auto minmax(auto, 130px);
-    grid-column-gap: 20px;
-`
 const CommunityFeed = (props) => {
     const {reviews} = props;
     if (!reviews) return "Loading...";
     return (
         <CommunityFeedContainer>
             {reviews.map(review => {
-                return (<Paper>
+                return (<Paper key={review.id}>
                             <ReviewContainer>
                                 <MetaContainer>
                                 <MetaContainerUser>

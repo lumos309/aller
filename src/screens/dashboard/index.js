@@ -261,102 +261,88 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const Dashboard = () => {
-    const [isGlobalTab, setGlobalTab] = useState(true);
+    const [globalTab, setGlobalTab] = useState(true);
     const handleToggleActiveTab = () => {
-        setGlobalTab(!isGlobalTab);
+        setGlobalTab(!globalTab);
     };
  
   
-    return isGlobalTab? (
+    return (
       <>
-      <Questionnaire></Questionnaire>
-        <Header/>
-            <StyledButton variant="contained" onClick={handleToggleActiveTab}>
-              Toggle Dashboard
-            </StyledButton>     
-        <DashboardContainer>
-          
-            <CardRow>
-                
-                <Card>
-                <CardHeader title="News Feed" />
-                
-                <Divider/>
-                    <StyledCardContent>
-                        
-                        <NewsFeed news={newsData}></NewsFeed>
-                    </StyledCardContent>
-                </Card>
-                <Card>
-                <CardHeader title="Community Feed" />
-                    <Divider/>
-                    <StyledCardContent>
-                        
-                        <CommunityFeed reviews={communityData}></CommunityFeed>
-                    </StyledCardContent>
-                </Card>
-                <Card>
-                
-          
-                <CardHeader title="Safety Measures" />
+        <Header handleToggleActiveTab={handleToggleActiveTab} />
+        {globalTab && <DashboardContainer>
+
+        <CardRow>
+            
+            <Card>
+            <CardHeader title="News Feed" />
+            
+            <Divider/>
+                <StyledCardContent>
+                    
+                    <NewsFeed news={newsData}></NewsFeed>
+                </StyledCardContent>
+            </Card>
+            <Card>
+            <CardHeader title="Community Feed" />
                 <Divider/>
                 <StyledCardContent>
-                        
-                        <Ratings ratings={ratingsData}></Ratings>
-                    </StyledCardContent>
                     
-                </Card>
+                    <CommunityFeed reviews={communityData}></CommunityFeed>
+                </StyledCardContent>
+            </Card>
+            <Card>
+            
 
-                <Card>
-                  <CardHeaderWrapperCovid>
-                <CardHeader title="COVID-19 Tracker" />
-                <RiskIndicator>
-                      <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
-                      <RiskIndicatorRight>
-                        {data ? data.risk : "Loading..."}
-                      </RiskIndicatorRight>
-                    </RiskIndicator>
-                    </CardHeaderWrapperCovid>
-                <Divider/>
-                    <StyledCardContent>
-                      <div style={{ width: "45%", minWidth: "300px" }}>
-                        <CanvasJSChart
-                          options={options}
-                          /* onRef = {ref => this.chart = ref} */
-                        />
-                      </div>
-                      <List>
-                          <ListItem divider>
-                              <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
-                          </ListItem>
-                          <ListItem divider>
-                              <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
-                          </ListItem>
-                      </List>
-                    </StyledCardContent>
-                </Card>
+            <CardHeader title="Safety Measures" />
+            <Divider/>
+            <StyledCardContent>
+                    
+                    <Ratings ratings={ratingsData}></Ratings>
+                </StyledCardContent>
                 
-            
-            
-            </CardRow>
-            
-        </DashboardContainer>
-      </>
-    ) : (
-      <>
-        <Header/>
-            <StyledButton variant="contained" onClick={handleToggleActiveTab}>
-              Toggle Dashboard
-            </StyledButton>     
+            </Card>
+
+            <Card>
+            <CardHeaderWrapperCovid>
+            <CardHeader title="COVID-19 Tracker" />
+            <RiskIndicator>
+                <RiskIndicatorLeft>Risk Level:</RiskIndicatorLeft>
+                <RiskIndicatorRight>
+                    {data ? data.risk : "Loading..."}
+                </RiskIndicatorRight>
+                </RiskIndicator>
+                </CardHeaderWrapperCovid>
+            <Divider/>
+                <StyledCardContent>
+                <div style={{ width: "45%", minWidth: "300px" }}>
+                    <CanvasJSChart
+                    options={options}
+                    /* onRef = {ref => this.chart = ref} */
+                    />
+                </div>
+                <List>
+                    <ListItem divider>
+                        <ListItemText primary={"Total Cases To Date: " + data.casesToDate}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Projected (7 days): " + calculateProjectedCases(7)}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Active Cases: " + data.activeCases}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Recovered Cases: " + data.recovered}></ListItemText>
+                    </ListItem>
+                    <ListItem divider>
+                        <ListItemText primary={"Deaths: " + data.deaths}></ListItemText>
+                    </ListItem>
+                </List>
+                </StyledCardContent>
+            </Card>
+        </CardRow>
+        </DashboardContainer>}
+     {!globalTab && 
         <DashboardContainer>
             <CardRowGlobal>
                 <Card>
@@ -443,8 +429,8 @@ const Dashboard = () => {
                 </Card>
             </CardRowGlobal>
 
-        </DashboardContainer>
-      </>
+        </DashboardContainer>}
+    </>
     );
   }
 

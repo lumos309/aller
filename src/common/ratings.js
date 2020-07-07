@@ -114,7 +114,7 @@ const Ratings = (props) => {
         <CommunityFeedContainer>
             {ratings.map(rating => {
                 return (
-                            <RatingsContainer>
+                            <RatingsContainer key={rating.id}>
                                 
                                 {/*
                                 <Title>{rating.title}</Title> 
@@ -130,7 +130,7 @@ const Ratings = (props) => {
                                 <SubContentContainer>
                                     {!rating.subcategories ? null : rating.subcategories.map(subcategory => {
                                         return (
-                                            <>
+                                            <React.Fragment  key={subcategory.id}>
                                         <div style={{marginBottom: "5px"}}>
                                         <LinearProgressWithLabel variant="determinate" value={subcategory.score} title={subcategory.title} />
                                             <Typography variant="body2" color="textSecondary">{subcategory.description}</Typography>
@@ -139,7 +139,7 @@ const Ratings = (props) => {
                                                 </Source>
                                                
                                         </div>
-                                        </>
+                                        </React.Fragment>
                                         )
                                     })}
                                     

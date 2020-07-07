@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import React from 'react';
+import React, {useState} from 'react';
 import coverPhoto from '../assets/images/brooklyn.jpeg';
 
 import ProgressRing from "../lib/progressRing";
@@ -34,11 +34,16 @@ color: #fff;
 const StyledH3 = styled.h3`
 color: #fff;
 `
+const HeaderActionsContainer = styled.div`
+    position absolute;
+    width: 80vw;
+    top: 80%;
+`
 const HeaderActions = styled.div`
-position absolute;
-top: 80%;
-display: grid;
-left:78%;
+    display: grid;
+    grid-template-columns: 300px 300px;
+    justify-content: space-between;
+    margin: 0 30px;
 `
 
 const AddButton = styled(Button)`
@@ -72,8 +77,12 @@ const Score = styled.div`
     font-size: 40px;
     color: white;
 `
-
+const StyledButton = styled(Button)`
+  position: absolute;
+  left: 200px;
+`
 const Header = props => {
+    const { handleToggleActiveTab } = props; 
     return (
     <HeaderContainer>
         <LocationHero src={coverPhoto}></LocationHero>
@@ -92,9 +101,15 @@ const Header = props => {
                 <div style={{height: "90px"}}>PRICE RATING</div>
             </HeaderStatsContainerRow>s
         </HeaderStatsContainer>
-        <HeaderActions>
-            <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
-        </HeaderActions>
+        <HeaderActionsContainer>
+            <HeaderActions>
+                <AddButton variant="outlined" onClick={handleToggleActiveTab}>
+                Toggle Dashboard
+                </AddButton>     
+                <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
+            </HeaderActions>
+        </HeaderActionsContainer>
+
     </HeaderContainer>
 )
 }
