@@ -258,7 +258,7 @@ const Dashboard = () => {
   
     return (
       <>
-        <Header handleToggleActiveTab={handleToggleActiveTab} />
+        <Header safetyScore={65} priceScore={88} handleToggleActiveTab={handleToggleActiveTab} isCountryTab={!globalTab}/>
         <ConfidenceDialog/>
         {!globalTab && <DashboardContainer>
 
