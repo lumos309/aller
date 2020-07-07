@@ -270,6 +270,7 @@ const Dashboard = () => {
     return (
       <>
         <Header handleToggleActiveTab={handleToggleActiveTab} />
+        <Questionnaire></Questionnaire>
         {!globalTab && <DashboardContainer>
 
         <CardRow>

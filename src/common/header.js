@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import React, {useState} from 'react';
+import React from 'react';
 import coverPhoto from '../assets/images/brooklyn.jpeg';
+import {Link} from 'react-router-dom';
 
 import ProgressRing from "../lib/progressRing";
 
@@ -101,14 +102,15 @@ const Header = props => {
                 <div style={{height: "90px"}}>PRICE RATING</div>
             </HeaderStatsContainerRow>s
         </HeaderStatsContainer>
-        <HeaderActionsContainer>
+        {window.location.pathname === '/dashboard' && <HeaderActionsContainer>
             <HeaderActions>
                 <AddButton variant="outlined" onClick={handleToggleActiveTab}>
                 View World/Country
                 </AddButton>     
-                <AddButton variant="outlined">Add Itinerary <AddIcon/></AddButton>
+                <AddButton component={Link} to="/itinerary" variant="outlined">Add Itinerary <AddIcon/></AddButton>
             </HeaderActions>
         </HeaderActionsContainer>
+        }
 
     </HeaderContainer>
 )
