@@ -248,7 +248,7 @@ const RatingLabel = styled.div`
 
 const StyledCardContent = styled(CardContent)`
     max-height: 420px;
-    overflow: scroll;
+    overflow-y: scroll;
 `
 
 const Dashboard = () => {
